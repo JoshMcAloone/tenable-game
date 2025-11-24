@@ -130,36 +130,52 @@ class SoundEffects {
 
   // Sound for failure
   async playFailure() {
-    // Dramatic failure sound - like a game show buzzer
+    // Dramatic, emphatic failure sound - multi-layered for maximum impact
     await this.ensureAudioContext();
     if (!this.audioContext) return;
 
-    // Create a harsh, dramatic buzzer sound
-    const oscillator = this.audioContext.createOscillator();
-    const gainNode = this.audioContext.createGain();
-    const filter = this.audioContext.createBiquadFilter();
+    // Layer 1: Main harsh buzzer with frequency drop
+    const oscillator1 = this.audioContext.createOscillator();
+    const gainNode1 = this.audioContext.createGain();
+    const filter1 = this.audioContext.createBiquadFilter();
 
-    oscillator.connect(filter);
-    filter.connect(gainNode);
-    gainNode.connect(this.audioContext.destination);
+    oscillator1.connect(filter1);
+    filter1.connect(gainNode1);
+    gainNode1.connect(this.audioContext.destination);
 
-    // Low, harsh buzzer frequency
-    oscillator.frequency.setValueAtTime(150, this.audioContext.currentTime);
-    oscillator.frequency.exponentialRampToValueAtTime(100, this.audioContext.currentTime + 0.8);
-    oscillator.type = 'sawtooth';
+    // Lower starting frequency, bigger drop for more drama
+    oscillator1.frequency.setValueAtTime(200, this.audioContext.currentTime);
+    oscillator1.frequency.exponentialRampToValueAtTime(60, this.audioContext.currentTime + 1.2);
+    oscillator1.type = 'sawtooth';
 
-    // Add a low-pass filter for a more muffled, dramatic effect
-    filter.type = 'lowpass';
-    filter.frequency.setValueAtTime(300, this.audioContext.currentTime);
-    filter.Q.setValueAtTime(8, this.audioContext.currentTime);
+    filter1.type = 'lowpass';
+    filter1.frequency.setValueAtTime(400, this.audioContext.currentTime);
+    filter1.Q.setValueAtTime(10, this.audioContext.currentTime);
 
-    gainNode.gain.setValueAtTime(0.25, this.audioContext.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + 0.8);
+    gainNode1.gain.setValueAtTime(0.35, this.audioContext.currentTime);
+    gainNode1.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + 1.2);
 
-    oscillator.start(this.audioContext.currentTime);
-    oscillator.stop(this.audioContext.currentTime + 0.8);
+    oscillator1.start(this.audioContext.currentTime);
+    oscillator1.stop(this.audioContext.currentTime + 1.2);
 
-    // Add a secondary "thud" sound for extra drama
+    // Layer 2: Secondary buzzer for harmony dissonance
+    const oscillator2 = this.audioContext.createOscillator();
+    const gainNode2 = this.audioContext.createGain();
+
+    oscillator2.connect(gainNode2);
+    gainNode2.connect(this.audioContext.destination);
+
+    oscillator2.frequency.setValueAtTime(170, this.audioContext.currentTime + 0.1);
+    oscillator2.frequency.exponentialRampToValueAtTime(45, this.audioContext.currentTime + 1.0);
+    oscillator2.type = 'square';
+
+    gainNode2.gain.setValueAtTime(0.2, this.audioContext.currentTime + 0.1);
+    gainNode2.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + 1.0);
+
+    oscillator2.start(this.audioContext.currentTime + 0.1);
+    oscillator2.stop(this.audioContext.currentTime + 1.0);
+
+    // Layer 3: Deep thud at the beginning for impact
     setTimeout(() => {
       const thudOsc = this.audioContext!.createOscillator();
       const thudGain = this.audioContext!.createGain();
@@ -167,15 +183,33 @@ class SoundEffects {
       thudOsc.connect(thudGain);
       thudGain.connect(this.audioContext!.destination);
 
-      thudOsc.frequency.setValueAtTime(80, this.audioContext!.currentTime);
+      thudOsc.frequency.setValueAtTime(50, this.audioContext!.currentTime);
       thudOsc.type = 'triangle';
 
-      thudGain.gain.setValueAtTime(0.3, this.audioContext!.currentTime);
-      thudGain.gain.exponentialRampToValueAtTime(0.01, this.audioContext!.currentTime + 0.3);
+      thudGain.gain.setValueAtTime(0.4, this.audioContext!.currentTime);
+      thudGain.gain.exponentialRampToValueAtTime(0.01, this.audioContext!.currentTime + 0.5);
 
       thudOsc.start(this.audioContext!.currentTime);
-      thudOsc.stop(this.audioContext!.currentTime + 0.3);
-    }, 200);
+      thudOsc.stop(this.audioContext!.currentTime + 0.5);
+    }, 50);
+
+    // Layer 4: Additional "crash" thud for emphasis
+    setTimeout(() => {
+      const crashOsc = this.audioContext!.createOscillator();
+      const crashGain = this.audioContext!.createGain();
+
+      crashOsc.connect(crashGain);
+      crashGain.connect(this.audioContext!.destination);
+
+      crashOsc.frequency.setValueAtTime(35, this.audioContext!.currentTime);
+      crashOsc.type = 'triangle';
+
+      crashGain.gain.setValueAtTime(0.3, this.audioContext!.currentTime);
+      crashGain.gain.exponentialRampToValueAtTime(0.01, this.audioContext!.currentTime + 0.8);
+
+      crashOsc.start(this.audioContext!.currentTime);
+      crashOsc.stop(this.audioContext!.currentTime + 0.8);
+    }, 400);
   }
 
   // Grand fanfare for completing the entire pyramid

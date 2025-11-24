@@ -84,15 +84,16 @@ export function reducer(state: GameState, action: Action): GameState {
       if (!state.animation?.isAnimating) return state;
       
       const round = state.rounds[state.currentRoundIndex];
-      const unrevealedAnswers = round.answers
+      
+      // Create list of ALL answer positions (revealed and unrevealed) going from bottom to top
+      const allAnswerPositions = round.answers
         .map((answer, index) => ({ answer, index }))
-        .filter(({ answer }) => !answer.revealed)
         .reverse(); // Start from bottom
       
-      if (unrevealedAnswers.length === 0) return state;
+      if (allAnswerPositions.length === 0) return state;
       
-      // Start highlighting the bottom-most unrevealed row
-      const firstRowIndex = unrevealedAnswers[0].index;
+      // Start highlighting the bottom-most row (revealed or unrevealed)
+      const firstRowIndex = allAnswerPositions[0].index;
       return {
         ...state,
         animation: {
@@ -111,30 +112,30 @@ export function reducer(state: GameState, action: Action): GameState {
       const currentRow = action.rowIndex;
       const currentAnswer = round.answers[currentRow];
       
-      // Check if this row matches the submitted answer using fuzzy matching
-      if (isAnswerAcceptable(submittedAnswer, currentAnswer.text)) {
-        // Found a match! Start success animation
+      // Check if this row matches the submitted answer and is not already revealed
+      if (!currentAnswer.revealed && isAnswerAcceptable(submittedAnswer, currentAnswer.text)) {
+        // Found the new correct answer! Start success animation
         return {
           ...state,
           animation: {
             ...state.animation,
             currentHighlightRow: currentRow,
-            animationType: 'success'
+            animationType: 'success',
+            foundAnswerIndex: currentRow
           }
         };
       }
       
-      // Check if this is the last unrevealed row to check
-      const unrevealedAnswers = round.answers
+      // Get all answer positions from bottom to top for progression
+      const allAnswerPositions = round.answers
         .map((answer, index) => ({ answer, index }))
-        .filter(({ answer }) => !answer.revealed)
         .reverse();
         
-      const currentRowPosition = unrevealedAnswers.findIndex(({ index }) => index === currentRow);
-      const isLastRow = currentRowPosition === unrevealedAnswers.length - 1;
+      const currentRowPosition = allAnswerPositions.findIndex(({ index }) => index === currentRow);
+      const isLastRow = currentRowPosition === allAnswerPositions.length - 1;
       
       if (isLastRow) {
-        // No match found, trigger failure animation
+        // Reached the top without finding a match - trigger failure
         return {
           ...state,
           animation: {
@@ -145,8 +146,8 @@ export function reducer(state: GameState, action: Action): GameState {
         };
       }
       
-      // Move to next row (going up the pyramid)
-      const nextRowIndex = unrevealedAnswers[currentRowPosition + 1]?.index;
+      // Move to next row (going up the pyramid through all positions)
+      const nextRowIndex = allAnswerPositions[currentRowPosition + 1]?.index;
       return {
         ...state,
         animation: {
@@ -160,7 +161,13 @@ export function reducer(state: GameState, action: Action): GameState {
       if (!state.animation?.isAnimating) return state;
       
       const round = state.rounds[state.currentRoundIndex];
-      const answerIndex = action.answerIndex;
+      // Use the foundAnswerIndex from animation state, fallback to action.answerIndex for backward compatibility
+      const answerIndex = state.animation.foundAnswerIndex ?? action.answerIndex;
+      
+      if (answerIndex === undefined) {
+        // Fallback if no answer index found
+        return state;
+      }
       
       // Update the answer as revealed and score
       const teams = state.teams.map((t) => {

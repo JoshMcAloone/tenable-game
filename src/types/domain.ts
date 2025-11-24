@@ -31,6 +31,7 @@ export interface GameState {
     currentHighlightRow: number | null;
     submittedAnswer: string;
     animationType: 'scanning' | 'success' | 'failure' | null;
+    foundAnswerIndex?: number; // Track which answer was found during scanning
   };
   // Celebration state for pyramid completion
   celebration?: {
