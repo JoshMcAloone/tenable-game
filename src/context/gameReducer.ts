@@ -280,16 +280,24 @@ export function reducer(state: GameState, action: Action): GameState {
       if (state.phase !== 'summary') return state;
       const nextIndex = state.currentRoundIndex + 1;
       const moreRounds = nextIndex < state.rounds.length;
-      const activeTeamsRemain = state.teams.some((t) => !t.eliminated);
       
-      if (!moreRounds || !activeTeamsRemain) {
+      if (!moreRounds) {
         return { ...state, phase: 'ended' };
       }
+      
+      // Reset all teams' lives and elimination status for the new round
+      const teamsWithResetLives = state.teams.map(team => ({
+        ...team,
+        livesRemaining: INITIAL_LIVES,
+        eliminated: false // Reset elimination status for new round
+      }));
+      
       return {
         ...state,
-        currentRoundIndex: moreRounds ? nextIndex : state.currentRoundIndex,
-        phase: moreRounds ? 'question' : 'ended',
-        currentTurnTeamId: moreRounds ? state.teams.find((t) => !t.eliminated)?.id || null : null,
+        teams: teamsWithResetLives,
+        currentRoundIndex: nextIndex,
+        phase: 'question',
+        currentTurnTeamId: teamsWithResetLives[0]?.id || null, // Start with first team
         // Reset celebration state for new round
         celebration: {
           isActive: false,

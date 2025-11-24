@@ -75,10 +75,12 @@ GameState:
 - Total score accumulates across rounds.
 
 ## 9. Lives & Elimination
-- Each team starts with 3 lives per game (not per round).
+- Each team starts with 3 lives per round.
 - Incorrect answer => lose 1 life.
-- At 0 lives: set eliminated; skip in turn rotation.
-- Lives do not reset between rounds (MVP assumption). (Future configurable: per-round reset toggle.)
+- At 0 lives: set eliminated for remainder of current round; skip in turn rotation.
+- **Lives reset to 3 at the start of each new round** - all teams get a fresh start.
+- **Elimination status resets at round end** - eliminated teams are reinstated with full lives for the next round.
+- This ensures fair gameplay where poor performance in one round doesn't compound across multiple rounds.
 
 ## 10. User Interface (High-Level)
 Views:
