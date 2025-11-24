@@ -1,0 +1,66 @@
+/* Language Selector Component Styles */
+.language-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-end;
+}
+
+.language-selector__label {
+  color: #FFFFFF;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+
+.language-selector__buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.language-selector__button {
+  padding: 8px 16px;
+  background: transparent;
+  border: 1px solid #00FFFF;
+  color: #00FFFF;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+}
+
+.language-selector__button:hover {
+  background: rgba(0, 255, 255, 0.1);
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+  transform: scale(1.05);
+}
+
+.language-selector__button--active {
+  background: #00FFFF;
+  color: #000000;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+  filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.8));
+}
+
+.language-selector__button--active:hover {
+  background: #00FFFF;
+  transform: scale(1.02);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .language-selector {
+    align-items: center;
+  }
+  
+  .language-selector__buttons {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}

@@ -1,0 +1,532 @@
+/* Pyramid Board Styles */
+.pyramid-container {
+  position: relative;
+  width: 100%;
+  max-width: 72rem; /* Much wider - now max-w-6xl (72rem) for excellent space utilization */
+}
+
+.pyramid-main {
+  position: relative;
+  background-color: #581c87; /* purple-900 */
+  border: 2px solid #39ff14; /* green-400 */
+  box-shadow: 0 10px 15px -3px rgba(57, 255, 20, 0.3);
+  clip-path: polygon(50% 0%, 5% 100%, 95% 100%);
+  background-image: repeating-linear-gradient(
+    45deg, 
+    transparent, 
+    transparent 8px, 
+    rgba(75, 0, 130, 0.3) 8px, 
+    rgba(75, 0, 130, 0.3) 16px
+  );
+}
+
+.pyramid-top-block {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5.5rem; /* Increased from 4rem to 5.5rem for much larger top triangle */
+  background-color: #39ff14; /* green-400 */
+  filter: drop-shadow(0 0 8px rgba(57, 255, 20, 0.8));
+  clip-path: polygon(50% 0%, 8% 100%, 92% 100%);
+}
+
+.pyramid-bottom-block {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1.5rem; /* Decreased from 2.5rem to 1.5rem for thinner bottom */
+  background-color: #39ff14; /* green-400 */
+  filter: drop-shadow(0 0 8px rgba(57, 255, 20, 0.8));
+}
+
+.pyramid-answers-container {
+  position: relative;
+  z-index: 10;
+  padding-top: 6rem; /* Increased from 4.5rem to 6rem for even larger top triangle */
+  padding-bottom: 2rem; /* Decreased from 3rem to 2rem to account for thinner bottom */
+  padding-left: 1rem; /* px-4 */
+  padding-right: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0; /* Removed gap (was 0.375rem) to eliminate space between rows */
+}
+
+.answer-tier {
+  margin: 0 auto;
+  transition: all 0.5s;
+  height: 2.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.answer-slot {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.125rem; /* rounded-sm */
+  font-weight: bold;
+  font-size: 0.75rem; /* text-xs */
+  letter-spacing: 0.1em; /* tracking-wider */
+  transition: all 0.5s;
+  /* Ensure proper overflow handling */
+  overflow: hidden;
+  position: relative;
+}
+
+.answer-slot--unrevealed {
+  background-color: #6b21a8; /* purple-800 */
+  color: white;
+  border: 1px solid #8b5cf6; /* purple-600 */
+  box-shadow: 0 10px 15px -3px rgba(139, 69, 191, 0.3);
+  filter: drop-shadow(0 0 6px rgba(139, 69, 191, 0.6));
+}
+
+.answer-slot--revealed {
+  background-color: #39ff14; /* green-400 */
+  color: white;
+  border: 1px solid #22c55e; /* green-300 */
+  box-shadow: 0 10px 15px -3px rgba(57, 255, 20, 0.5);
+  filter: drop-shadow(0 0 12px rgba(57, 255, 20, 0.8));
+  animation: pulse 2s infinite;
+}
+
+.answer-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 0 8px;
+  box-sizing: border-box;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+/* Fixed Tooltip System - Show only on hover */
+.answer-tooltip-trigger {
+  position: relative;
+  cursor: pointer;
+}
+
+.answer-tooltip-trigger:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #000000;
+  color: #39ff14;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  border: 1px solid #39ff14;
+  box-shadow: 0 0 15px rgba(57, 255, 20, 0.5);
+  z-index: 1000;
+  pointer-events: none;
+  animation: tooltipFadeIn 0.2s ease-in-out;
+}
+
+@keyframes tooltipFadeIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(5px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* Force ellipsis by constraining width more aggressively */
+.answer-text {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-align: center;
+  color: inherit;
+  /* Base ellipsis setup */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+  line-height: 1;
+  display: inline-block;
+}
+
+/* Tier-specific width constraints for better ellipsis handling */
+/* Top tiers need smaller max-width to ensure ellipsis triggers */
+.answer-tier:nth-child(1) .answer-text {
+  max-width: 70px; /* Most restrictive for top tier */
+}
+
+.answer-tier:nth-child(2) .answer-text {
+  max-width: 85px; /* Slightly more generous */
+}
+
+.answer-tier:nth-child(3) .answer-text {
+  max-width: 100px; /* Even more generous */
+}
+
+/* Bottom tiers get more generous widths */
+.answer-tier:nth-child(4) .answer-text {
+  max-width: 120px;
+}
+
+.answer-tier:nth-child(5) .answer-text {
+  max-width: 140px;
+}
+
+.answer-tier:nth-child(6) .answer-text {
+  max-width: 160px;
+}
+
+/* For any additional tiers beyond 6 */
+.answer-tier:nth-child(n+7) .answer-text {
+  max-width: 180px;
+}
+
+.answer-slot-number {
+  font-size: 0.875rem;
+  font-weight: 800;
+  /* Ensure consistent centering with revealed answers */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+/* Animation states for progressive reveal */
+@keyframes rowHighlight {
+  0% {
+    background: linear-gradient(145deg, rgba(57, 255, 20, 0.1), rgba(57, 255, 20, 0.05));
+    box-shadow: 0 0 8px rgba(57, 255, 20, 0.3);
+    transform: scale(1);
+  }
+  25% {
+    background: #FFFFFF !important;
+    box-shadow: 0 0 40px rgba(255, 255, 255, 1), inset 0 0 30px rgba(255, 255, 255, 0.8);
+    transform: scale(1.08);
+  }
+  50% {
+    background: #FFFFFF !important;
+    box-shadow: 0 0 50px rgba(255, 255, 255, 1.2), inset 0 0 40px rgba(255, 255, 255, 0.9);
+    transform: scale(1.12);
+  }
+  75% {
+    background: #FFFFFF !important;
+    box-shadow: 0 0 40px rgba(255, 255, 255, 1), inset 0 0 30px rgba(255, 255, 255, 0.8);
+    transform: scale(1.08);
+  }
+  100% {
+    background: #FFFFFF !important;
+    box-shadow: 0 0 35px rgba(255, 255, 255, 0.9), inset 0 0 25px rgba(255, 255, 255, 0.7);
+    transform: scale(1.05);
+  }
+}
+
+@keyframes successPulse {
+  0% {
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 35px rgba(255, 255, 255, 0.9);
+    transform: scale(1.05);
+  }
+  25% {
+    background: rgba(57, 255, 20, 0.9) !important;
+    box-shadow: 0 0 60px rgba(57, 255, 20, 1.5), inset 0 0 40px rgba(57, 255, 20, 0.8);
+    transform: scale(1.15);
+  }
+  50% {
+    background: rgba(57, 255, 20, 1) !important;
+    box-shadow: 0 0 80px rgba(57, 255, 20, 2), inset 0 0 50px rgba(57, 255, 20, 1);
+    transform: scale(1.2);
+  }
+  75% {
+    background: rgba(57, 255, 20, 0.9) !important;
+    box-shadow: 0 0 60px rgba(57, 255, 20, 1.5), inset 0 0 40px rgba(57, 255, 20, 0.8);
+    transform: scale(1.15);
+  }
+  100% {
+    background: rgba(57, 255, 20, 0.3) !important;
+    box-shadow: 0 0 25px rgba(57, 255, 20, 0.8), inset 0 0 15px rgba(57, 255, 20, 0.2);
+    transform: scale(1);
+  }
+}
+
+@keyframes failureFlash {
+  0% {
+    background: linear-gradient(145deg, rgba(57, 255, 20, 0.1), rgba(57, 255, 20, 0.05));
+    transform: scale(1);
+  }
+  10% {
+    background: rgba(255, 0, 0, 1) !important;
+    box-shadow: 0 0 60px rgba(255, 0, 0, 2), inset 0 0 40px rgba(255, 0, 0, 0.8);
+    transform: scale(1.1);
+  }
+  20% {
+    background: rgba(255, 0, 0, 0.7) !important;
+    box-shadow: 0 0 40px rgba(255, 0, 0, 1.5), inset 0 0 30px rgba(255, 0, 0, 0.6);
+    transform: scale(1.05);
+  }
+  30% {
+    background: rgba(255, 0, 0, 1) !important;
+    box-shadow: 0 0 60px rgba(255, 0, 0, 2), inset 0 0 40px rgba(255, 0, 0, 0.8);
+    transform: scale(1.1);
+  }
+  40% {
+    background: rgba(255, 0, 0, 0.5) !important;
+    box-shadow: 0 0 30px rgba(255, 0, 0, 1), inset 0 0 20px rgba(255, 0, 0, 0.4);
+    transform: scale(1.03);
+  }
+  50% {
+    background: rgba(255, 0, 0, 1) !important;
+    box-shadow: 0 0 60px rgba(255, 0, 0, 2), inset 0 0 40px rgba(255, 0, 0, 0.8);
+    transform: scale(1.1);
+  }
+  60% {
+    background: rgba(255, 0, 0, 0.7) !important;
+    box-shadow: 0 0 40px rgba(255, 0, 0, 1.5), inset 0 0 30px rgba(255, 0, 0, 0.6);
+    transform: scale(1.05);
+  }
+  70% {
+    background: rgba(255, 0, 0, 1) !important;
+    box-shadow: 0 0 60px rgba(255, 0, 0, 2), inset 0 0 40px rgba(255, 0, 0, 0.8);
+    transform: scale(1.1);
+  }
+  85% {
+    background: rgba(255, 0, 0, 0.3) !important;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.8), inset 0 0 10px rgba(255, 0, 0, 0.3);
+    transform: scale(1.02);
+  }
+  100% {
+    background: linear-gradient(145deg, rgba(57, 255, 20, 0.1), rgba(57, 255, 20, 0.05));
+    box-shadow: 0 0 8px rgba(57, 255, 20, 0.3);
+    transform: scale(1);
+  }
+}
+
+/* Purple text animation for highlighted rows */
+@keyframes textThrob {
+  0%, 100% {
+    color: #4B0082;
+    text-shadow: 0 0 10px rgba(75, 0, 130, 0.8);
+  }
+  50% {
+    color: #8A2BE2;
+    text-shadow: 0 0 20px rgba(138, 43, 226, 1);
+  }
+}
+
+/* Broken heart animation for life lost */
+@keyframes heartAppear {
+  0% {
+    transform: scale(0) translateY(-30px);
+    opacity: 0;
+  }
+  20% {
+    transform: scale(1.4) translateY(-30px);
+    opacity: 1;
+  }
+  35% {
+    transform: scale(1.1) translateY(-30px);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1) translateY(-30px);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) translateY(-30px);
+    opacity: 1;
+  }
+}
+
+/* Animation classes */
+.answer-tier--highlighting {
+  animation: rowHighlight 0.6s ease-in-out infinite !important;
+  z-index: 10 !important;
+  position: relative !important;
+}
+
+.answer-tier--highlighting .answer-slot {
+  background: #FFFFFF !important;
+  background-color: #FFFFFF !important;
+  border-color: rgba(255, 255, 255, 0.8) !important;
+  box-shadow: 0 0 40px rgba(255, 255, 255, 1), inset 0 0 30px rgba(255, 255, 255, 0.8) !important;
+  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 1)) !important;
+}
+
+.answer-tier--highlighting .answer-slot-number {
+  animation: textThrob 0.6s ease-in-out infinite !important;
+}
+
+.answer-tier--success {
+  animation: successPulse 0.8s ease-out !important;
+  z-index: 10 !important;
+  position: relative !important;
+}
+
+.pyramid-container--failure {
+  animation: failureFlash 1.5s ease-in-out !important;
+}
+
+.pyramid-container--failure .answer-tier:not(.answer-tier--revealed) {
+  animation: failureFlash 1.5s ease-in-out !important;
+}
+
+.pyramid-container--failure .answer-tier:not(.answer-tier--revealed) .answer-slot-number {
+  animation: textThrob 1.5s ease-in-out !important;
+  color: #FFFFFF !important;
+  text-shadow: 0 0 15px rgba(255, 255, 255, 1) !important;
+}
+
+/* Broken heart overlay */
+.heart-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+  pointer-events: none;
+}
+
+.heart-wrapper {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: auto;
+  animation: heartAppear 2.8s ease forwards;
+}
+
+/* Position & style for each half */
+.heart-split {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #f87171;
+  /* Heart shape using clip-path */
+  clip-path: polygon(
+    50% 15%,
+    60% 5%, 70% 5%, 80% 15%, 85% 25%, 85% 35%, 80% 45%, 70% 55%,
+    60% 65%, 50% 85%, 40% 65%, 30% 55%, 20% 45%, 15% 35%,
+    15% 25%, 20% 15%, 30% 5%, 40% 5%
+  );
+  transform-origin: center;
+  animation-fill-mode: forwards;
+  filter: drop-shadow(0 0 15px rgba(248, 113, 113, 1)) drop-shadow(0 0 30px rgba(248, 113, 113, 0.8));
+}
+
+/* LEFT HALF MASK - combines heart shape with left half mask */
+.left-half {
+  clip-path: polygon(
+    50% 15%,
+    40% 5%, 30% 5%, 20% 15%, 15% 25%, 15% 35%, 20% 45%, 30% 55%,
+    40% 65%, 50% 85%, 50% 85%, 50% 65%, 50% 55%, 50% 45%,
+    50% 35%, 50% 25%, 50% 15%
+  );
+  animation: leftFall 2.2s ease-in-out forwards 0.8s;
+}
+
+/* RIGHT HALF MASK - combines heart shape with right half mask */
+.right-half {
+  clip-path: polygon(
+    50% 15%,
+    50% 25%, 50% 35%, 50% 45%, 50% 55%, 50% 65%, 50% 85%,
+    60% 65%, 70% 55%, 80% 45%, 85% 35%, 85% 25%, 80% 15%,
+    70% 5%, 60% 5%
+  );
+  animation: rightFall 2.2s ease-in-out forwards 0.8s;
+}
+
+/* SVG crack */
+.crack-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 120px;
+  height: 120px;
+  stroke: #000000;
+  stroke-width: 3;
+  fill: none;
+  opacity: 0;
+  animation: crackAppear 0.4s ease forwards;
+  animation-delay: 0.4s;
+  z-index: 1;
+}
+
+.crack-line {
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+  animation: drawCrack 0.8s ease forwards 0.4s;
+  filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.8));
+}
+
+/* Animate crack visibility */
+@keyframes crackAppear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Draw crack line progressively */
+@keyframes drawCrack {
+  0% {
+    stroke-dashoffset: 200;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* LEFT HALF FALL ANIMATION */
+@keyframes leftFall {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 1;
+  }
+  20% {
+    transform: translate(-5px, 2px) rotate(-3deg);
+    opacity: 1;
+  }
+  40% {
+    transform: translate(-10px, 5px) rotate(-5deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-80px, 120px) rotate(-35deg);
+    opacity: 0;
+  }
+}
+
+/* RIGHT HALF FALL ANIMATION */
+@keyframes rightFall {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 1;
+  }
+  20% {
+    transform: translate(5px, 2px) rotate(3deg);
+    opacity: 1;
+  }
+  40% {
+    transform: translate(10px, 5px) rotate(5deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(80px, 120px) rotate(35deg);
+    opacity: 0;
+  }
+}
+

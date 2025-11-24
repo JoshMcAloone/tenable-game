@@ -1,0 +1,34 @@
+[
+  {
+    "id": "round1",
+    "questionText": "What are the last 10 songs alphabetically on 'ABBA Gold'?",
+    "answers": [
+      { "text": "Money, Money, Money", "revealed": false },
+      { "text": "One of Us", "revealed": false },
+      { "text": "S.O.S", "revealed": false },
+      { "text": "Super Trouper", "revealed": false },
+      { "text": "Take a Chance on Me", "revealed": false },
+      { "text": "Thank You for the Music", "revealed": false },
+      { "text": "The Name of the Game", "revealed": false },
+      { "text": "The Winner Takes It All", "revealed": false },
+      { "text": "Voulez-Vous", "revealed": false },
+      { "text": "Waterloo", "revealed": false }
+    ]
+  },
+  {
+    "id": "round2",
+    "questionText": "Name 10 common web browsers (current or historical).",
+    "answers": [
+      { "text": "Chrome", "revealed": false },
+      { "text": "Firefox", "revealed": false },
+      { "text": "Safari", "revealed": false },
+      { "text": "Edge", "revealed": false },
+      { "text": "Opera", "revealed": false },
+      { "text": "Brave", "revealed": false },
+      { "text": "Vivaldi", "revealed": false },
+      { "text": "Internet Explorer", "revealed": false },
+      { "text": "Netscape", "revealed": false },
+      { "text": "Chromium", "revealed": false }
+    ]
+  }
+]

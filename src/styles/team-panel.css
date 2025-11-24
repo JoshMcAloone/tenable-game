@@ -1,0 +1,194 @@
+/* Team Panel Styles */
+.team-panel {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.375rem; /* rounded-md */
+  border: 1px solid;
+  transition: all 0.3s;
+  background-color: black;
+}
+
+.team-panel--active {
+  border-color: #39ff14; /* green-400 */
+  box-shadow: 0 10px 15px -3px rgba(57, 255, 20, 0.3);
+  filter: drop-shadow(0 0 10px rgba(57, 255, 20, 0.6));
+}
+
+.team-panel--inactive {
+  border-color: #8b5cf6; /* purple-600 */
+  box-shadow: 0 10px 15px -3px rgba(139, 69, 191, 0.2);
+  filter: drop-shadow(0 0 6px rgba(139, 69, 191, 0.4));
+}
+
+.team-panel--eliminated {
+  opacity: 0.4;
+  filter: grayscale(1);
+}
+
+.team-panel__active-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 0.125rem; /* h-0.5 */
+  background-color: #39ff14; /* green-400 */
+  box-shadow: 0 1px 2px rgba(57, 255, 20, 0.5);
+}
+
+.team-panel__content {
+  padding: 0.625rem; /* p-2.5 */
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem; /* space-y-1.5 */
+}
+
+.team-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.team-panel__name {
+  font-weight: bold;
+  font-size: 0.75rem; /* text-xs */
+  letter-spacing: 0.1em; /* tracking-wider */
+  color: white;
+}
+
+.team-panel--active .team-panel__name {
+  color: #39ff14; /* green-400 */
+}
+
+.team-panel__badge {
+  font-size: 0.75rem; /* text-xs */
+  font-weight: bold;
+  color: black;
+  background-color: #39ff14; /* green-400 */
+  padding: 0.125rem 0.375rem; /* px-1.5 py-0.5 */
+  border-radius: 0.125rem; /* rounded-sm */
+  letter-spacing: 0.1em; /* tracking-wider */
+}
+
+.team-panel__stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem; /* gap-2 */
+}
+
+.team-panel__stat {
+  text-align: center;
+}
+
+.team-panel__stat-value {
+  font-size: 1rem; /* text-base */
+  font-weight: bold;
+  color: #00ffff; /* cyan-400 */
+}
+
+.team-panel--active .team-panel__stat-value {
+  color: #39ff14; /* green-400 */
+}
+
+.team-panel__stat-label {
+  font-size: 0.75rem; /* text-xs */
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 500;
+  letter-spacing: 0.025em; /* tracking-wide */
+}
+
+.team-panel__heart-container {
+  display: flex;
+  justify-content: center;
+  gap: 0.125rem; /* space-x-0.5 */
+}
+
+.team-panel__heart {
+  font-size: 0.75rem; /* text-xs */
+}
+
+.team-panel__heart--active {
+  color: #f87171; /* red-400 */
+  filter: drop-shadow(0 0 3px rgba(248, 113, 113, 0.8));
+}
+
+.team-panel__heart--inactive {
+  color: rgba(127, 29, 29, 0.3); /* red-900/30 */
+}
+
+.team-panel__eliminated {
+  text-align: center;
+}
+
+.team-panel__eliminated-text {
+  color: #f87171; /* red-400 */
+  font-weight: bold;
+  font-size: 0.75rem; /* text-xs */
+  background-color: rgba(239, 68, 68, 0.2); /* red-500/20 */
+  padding: 0.125rem 0.5rem; /* px-2 py-0.5 */
+  border-radius: 0.125rem; /* rounded-sm */
+  border: 1px solid rgba(239, 68, 68, 0.3); /* red-500/30 */
+  letter-spacing: 0.1em; /* tracking-wider */
+}
+
+/* Legacy classes for compatibility */
+.team-panel__indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 0.125rem; /* h-0.5 */
+  background-color: #39ff14; /* green-400 */
+  box-shadow: 0 1px 2px rgba(57, 255, 20, 0.5);
+}
+
+.team-panel__name--active {
+  color: #39ff14; /* green-400 */
+}
+
+.team-panel__name--inactive {
+  color: white;
+}
+
+.team-panel__status {
+  font-size: 0.75rem; /* text-xs */
+  font-weight: bold;
+  color: black;
+  background-color: #39ff14; /* green-400 */
+  padding: 0.125rem 0.375rem; /* px-1.5 py-0.5 */
+  border-radius: 0.125rem; /* rounded-sm */
+  letter-spacing: 0.1em; /* tracking-wider */
+}
+
+.team-panel__score {
+  font-size: 1rem; /* text-base */
+  font-weight: bold;
+}
+
+.team-panel__score--active {
+  color: #39ff14; /* green-400 */
+}
+
+.team-panel__score--inactive {
+  color: #00ffff; /* cyan-400 */
+}
+
+.team-panel__lives {
+  display: flex;
+  justify-content: center;
+  gap: 0.125rem; /* space-x-0.5 */
+}
+
+.team-panel__elimination {
+  text-align: center;
+}
+
+.team-panel__elimination-badge {
+  color: #f87171; /* red-400 */
+  font-weight: bold;
+  font-size: 0.75rem; /* text-xs */
+  background-color: rgba(239, 68, 68, 0.2); /* red-500/20 */
+  padding: 0.125rem 0.5rem; /* px-2 py-0.5 */
+  border-radius: 0.125rem; /* rounded-sm */
+  border: 1px solid rgba(239, 68, 68, 0.3); /* red-500/30 */
+  letter-spacing: 0.1em; /* tracking-wider */
+}
