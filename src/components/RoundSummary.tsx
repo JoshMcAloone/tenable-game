@@ -28,23 +28,91 @@ export default function RoundSummary() {
 
         {/* Question Recap */}
         <div className="bg-black border border-purple-600 rounded-md p-6 shadow-lg shadow-purple-600/30">
-          <h2 className="text-2xl font-bold text-white mb-4 text-center tracking-wider">
+          <h2 className="text-2xl font-bold text-white mb-6 text-center tracking-wider">
             {round.questionText}
           </h2>
           
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-            {round.answers.map((answer, index) => (
-              <div
-                key={index}
-                className="bg-green-400 border border-green-300 rounded-md p-4 text-center text-black shadow-lg shadow-green-400/30"
-                style={{ filter: 'drop-shadow(0 0 8px rgba(57,255,20,0.6))' }}
-              >
-                <div className="text-xs font-bold mb-2">{index + 1}</div>
-                <div className="text-sm font-semibold break-words">
-                  {answer.text}
+          {/* Summary Stats */}
+          <div className="flex justify-center gap-8 mb-6">
+            <div className="text-center">
+              <div className="text-3xl font-bold text-green-400 filter drop-shadow-[0_0_8px_rgba(57,255,20,0.8)]">
+                {round.answers.filter(a => a.revealed).length}
+              </div>
+              <div className="text-sm text-green-300">Found</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-red-400 filter drop-shadow-[0_0_8px_rgba(239,68,68,0.8)]">
+                {round.answers.filter(a => !a.revealed).length}
+              </div>
+              <div className="text-sm text-red-300">Missed</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-cyan-400 filter drop-shadow-[0_0_8px_rgba(34,211,238,0.8)]">
+                {round.answers.length}
+              </div>
+              <div className="text-sm text-cyan-300">Total</div>
+            </div>
+          </div>
+          
+          {/* Answers Grid with Enhanced Visual Design */}
+          <div className="space-y-6">
+            {/* Found Answers */}
+            <div>
+              <h3 className="text-xl font-bold text-green-400 mb-4 text-center tracking-wider filter drop-shadow-[0_0_6px_rgba(57,255,20,0.6)]">
+                ✓ Answers Found ({round.answers.filter(a => a.revealed).length})
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {round.answers.map((answer, index) => (
+                  answer.revealed && (
+                    <div
+                      key={index}
+                      className="bg-green-400 border-2 border-green-300 rounded-lg p-4 text-center text-black shadow-lg transform hover:scale-105 transition-transform"
+                      style={{ filter: 'drop-shadow(0 0 12px rgba(57,255,20,0.7))' }}
+                    >
+                      <div className="flex items-center justify-center gap-2 mb-2">
+                        <span className="w-6 h-6 bg-green-600 text-white rounded-full flex items-center justify-center text-xs font-bold">
+                          {index + 1}
+                        </span>
+                        <span className="text-green-800 font-bold">✓</span>
+                      </div>
+                      <div className="text-lg font-bold break-words leading-tight">
+                        {answer.text}
+                      </div>
+                    </div>
+                  )
+                ))}
+              </div>
+            </div>
+
+            {/* Missed Answers */}
+            {round.answers.some(a => !a.revealed) && (
+              <div>
+                <h3 className="text-xl font-bold text-red-400 mb-4 text-center tracking-wider filter drop-shadow-[0_0_6px_rgba(239,68,68,0.6)]">
+                  ✗ Answers Missed ({round.answers.filter(a => !a.revealed).length})
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {round.answers.map((answer, index) => (
+                    !answer.revealed && (
+                      <div
+                        key={index}
+                        className="bg-red-500 border-2 border-red-400 rounded-lg p-4 text-center text-white shadow-lg opacity-80"
+                        style={{ filter: 'drop-shadow(0 0 8px rgba(239,68,68,0.5))' }}
+                      >
+                        <div className="flex items-center justify-center gap-2 mb-2">
+                          <span className="w-6 h-6 bg-red-700 text-white rounded-full flex items-center justify-center text-xs font-bold">
+                            {index + 1}
+                          </span>
+                          <span className="text-red-200 font-bold">✗</span>
+                        </div>
+                        <div className="text-lg font-bold break-words leading-tight">
+                          {answer.text}
+                        </div>
+                      </div>
+                    )
+                  ))}
                 </div>
               </div>
-            ))}
+            )}
           </div>
         </div>
 
