@@ -25,7 +25,7 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 5.5rem; /* Increased from 4rem to 5.5rem for much larger top triangle */
+  height: 4.5rem; /* Decreased from 5.5rem to 4.5rem for slightly smaller top triangle */
   background-color: #39ff14; /* green-400 */
   filter: drop-shadow(0 0 8px rgba(57, 255, 20, 0.8));
   clip-path: polygon(50% 0%, 8% 100%, 92% 100%);
@@ -36,7 +36,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  height: 1.5rem; /* Decreased from 2.5rem to 1.5rem for thinner bottom */
+  height: 0.5rem; /* Decreased from 1rem to 0.5rem for very thin bottom */
   background-color: #39ff14; /* green-400 */
   filter: drop-shadow(0 0 8px rgba(57, 255, 20, 0.8));
 }
@@ -44,8 +44,8 @@
 .pyramid-answers-container {
   position: relative;
   z-index: 10;
-  padding-top: 6rem; /* Increased from 4.5rem to 6rem for even larger top triangle */
-  padding-bottom: 2rem; /* Decreased from 3rem to 2rem to account for thinner bottom */
+  padding-top: 5rem; /* Decreased from 6rem to 5rem to match smaller top triangle */
+  padding-bottom: 1rem; /* Decreased from 1.5rem to 1rem to maximize space for rows */
   padding-left: 1rem; /* px-4 */
   padding-right: 1rem;
   display: flex;
@@ -56,7 +56,7 @@
 .answer-tier {
   margin: 0 auto;
   transition: all 0.5s;
-  height: 2.25rem;
+  height: 2.75rem; /* Increased from 2.5rem to 2.75rem for even more vertical space */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -140,49 +140,59 @@
 
 /* Force ellipsis by constraining width more aggressively */
 .answer-text {
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-size: 0.875rem; /* Increased from 0.75rem to 0.875rem (text-sm) */
+  font-weight: 800;
   text-align: center;
   color: inherit;
+  /* Black outline effect using multiple text shadows */
+  text-shadow: 
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000,
+    0 -1px 0 #000,
+    0 1px 0 #000,
+    -1px 0 0 #000,
+    1px 0 0 #000;
   /* Base ellipsis setup */
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   width: 100%;
-  line-height: 1;
+  line-height: 1.1;
   display: inline-block;
 }
 
 /* Tier-specific width constraints for better ellipsis handling */
-/* Top tiers need smaller max-width to ensure ellipsis triggers */
+/* Only constrain the very top tiers where space is truly limited */
 .answer-tier:nth-child(1) .answer-text {
-  max-width: 70px; /* Most restrictive for top tier */
+  max-width: 90px; /* Increased from 70px */
 }
 
 .answer-tier:nth-child(2) .answer-text {
-  max-width: 85px; /* Slightly more generous */
+  max-width: 120px; /* Increased from 85px */
 }
 
 .answer-tier:nth-child(3) .answer-text {
-  max-width: 100px; /* Even more generous */
+  max-width: 150px; /* Increased from 100px */
 }
 
-/* Bottom tiers get more generous widths */
+/* Bottom tiers get much more generous widths - let the container width control ellipsis */
 .answer-tier:nth-child(4) .answer-text {
-  max-width: 120px;
+  max-width: 250px; /* Increased from 120px */
 }
 
 .answer-tier:nth-child(5) .answer-text {
-  max-width: 140px;
+  max-width: 300px; /* Increased from 140px */
 }
 
 .answer-tier:nth-child(6) .answer-text {
-  max-width: 160px;
+  max-width: 350px; /* Increased from 160px */
 }
 
-/* For any additional tiers beyond 6 */
+/* For any additional tiers beyond 6 - very generous */
 .answer-tier:nth-child(n+7) .answer-text {
-  max-width: 180px;
+  max-width: 400px; /* Increased from 180px */
 }
 
 .answer-slot-number {
