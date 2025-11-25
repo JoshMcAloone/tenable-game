@@ -8,7 +8,7 @@ A phased checklist for collaboratively building the MVP using React + Vite + Typ
 - [x] Add Tailwind CSS v4 via `@tailwindcss/vite` plugin per `doc/installation_tailwind.md`
 - [x] Configure ESLint + Prettier (TypeScript + React rules)
 - [x] Add basic PWA files (manifest.json, icons placeholder, service worker scaffold)
-- [ ] Verify dev server runs and Tailwind styles load
+- [x] Verify dev server runs and Tailwind styles load
 
 ## Phase 1: Domain & Data Structures
 - [x] Create TypeScript interfaces: `QuestionSet`, `Answer`, `Team`, `GameState`
@@ -20,7 +20,7 @@ A phased checklist for collaboratively building the MVP using React + Vite + Typ
 ## Phase 2: Global State Management
 - [x] Choose state approach (simple React Context + reducer for MVP)
 - [x] Implement `GameProvider` with reducer actions: INIT_GAME, START_ROUND, SUBMIT_ANSWER, ADVANCE_TURN, ELIMINATE_TEAM, END_ROUND, END_GAME
-- [x] Write pure reducer tests (Vitest) for core transitions
+- [ ] Write pure reducer tests (Vitest) for core transitions
 - [x] Ensure immutable updates & predictable turn rotation logic
 
 ## Phase 3: UI Component Skeletons
@@ -40,22 +40,24 @@ A phased checklist for collaboratively building the MVP using React + Vite + Typ
 - [x] Life decrement & elimination handling
 - [x] Turn advancement skipping eliminated teams
 - [x] Round end detection (all answers revealed OR all eliminated)
-- [ ] Game end detection (no more rounds or no active teams) (pending final multi-round test)
+- [x] Game end detection (no more rounds or no active teams)
 
 ## Phase 5: Styling & UX Polish
 - [x] Responsive grid (16:9 focus) with Tailwind
 - [x] High contrast color palette & accessible text sizes
 - [x] Visual states: active team highlight, eliminated dimming
-- [x] Simple animations: answer reveal pulse (life loss shake pending)
+- [x] Simple animations: answer reveal pulse
+- [ ] Life loss shake animation
 - [x] Keyboard accessibility (Enter to submit answer)
 - [x] Focus management (auto-focus input on active team turn)
 
 ## Phase 6: PWA Enhancements (MVP Light)
 - [x] Add manifest real icons (placeholders)
-- [ ] Cache static assets via service worker (basic strategy) (pending)
+- [x] Cache static assets via service worker (basic strategy)
 - [ ] Test offline availability for static game assets
 
 ## Phase 7: Testing & Quality
+- [ ] Set up test framework (Vitest) and add test script to package.json
 - [ ] Unit tests for reducer logic (edge cases: duplicate answer, last life, last answer)
 - [ ] Component tests (rendering states) with Testing Library
 - [ ] Accessibility checks (axe or similar tooling)
@@ -67,15 +69,16 @@ A phased checklist for collaboratively building the MVP using React + Vite + Typ
 - [ ] Optionally script to validate 10 answers per question before bundling
 
 ## Phase 9: Documentation
-- [ ] Update `README.md` with setup/run instructions
-- [ ] Add developer guide: state transitions & data flow diagram
+- [x] Update `README.md` with setup/run instructions
+- [x] Add developer guide: state transitions & data flow diagram
 - [ ] Add contribution guidelines (coding style, test expectations)
 
 ## Phase 10: Refinement & Stretch (Optional Post-MVP)
 - [x] Fuzzy matching (Levenshtein or synonyms list) - ✅ Implemented with abbreviation handling
-- [ ] Persist game state in localStorage
+- [x] Undo functionality - ✅ Implemented with 30-second time limit and UI integration
+- [x] Persist game state in localStorage - ✅ Automatic save/restore with RESTORE_STATE action
 - [ ] Admin interface to add questions in-app
-- [ ] Sound/FX layer
+- [x] Sound/FX layer - ✅ Comprehensive audio system with progressive pitch scanning, dramatic failure sounds, and Web Audio API
 
 ## Cross-Cutting Practices
 - [ ] Frequent small commits per phase milestone
@@ -91,12 +94,12 @@ A phased checklist for collaboratively building the MVP using React + Vite + Typ
 - [ ] Maintain CHANGELOG after MVP stabilization
 
 ## Acceptance Gate Checklist (Before Calling MVP Complete)
-- [ ] Full round playable end-to-end with correct scoring
-- [ ] Multiple teams elimination scenario tested
-- [ ] All 10 answers reveal scenario verified
-- [ ] Duplicate answer handling works (warn, no penalty)
-- [ ] Lives decrement & elimination visual feedback
-- [ ] No console errors in production build
+- [x] Full round playable end-to-end with correct scoring
+- [x] Multiple teams elimination scenario tested
+- [x] All 10 answers reveal scenario verified
+- [x] Duplicate answer handling works (warn, no penalty)
+- [x] Lives decrement & elimination visual feedback
+- [x] No console errors in production build
 - [ ] Basic offline load works (PWA assets served)
 
 ---
