@@ -17,7 +17,8 @@ export type Action =
   | { type: 'END_CELEBRATION' }
   | { type: 'END_ROUND' }
   | { type: 'END_GAME' }
-  | { type: 'RESTORE_STATE'; state: GameState };
+  | { type: 'RESTORE_STATE'; state: GameState }
+  | { type: 'UNDO_LAST_ACTION' };
 
 export const INITIAL_STATE: GameState = {
   currentRoundIndex: -1,
@@ -63,7 +64,11 @@ export function reducer(state: GameState, action: Action): GameState {
     }
     case 'START_ROUND': {
       if (state.phase !== 'question') return state;
-      return { ...state, phase: 'board' };
+      return { 
+        ...state, 
+        phase: 'board',
+        lastAction: undefined // Clear any undo action when starting new round
+      };
     }
     case 'SUBMIT_ANSWER': {
       if (state.phase !== 'board' || state.animation?.isAnimating) return state;
@@ -206,12 +211,17 @@ export function reducer(state: GameState, action: Action): GameState {
           currentHighlightRow: null,
           submittedAnswer: '',
           animationType: null
-        }
+        },
+        // Clear last action on successful answer
+        lastAction: undefined
       };
     }
     
     case 'REVEAL_ANSWER_FAILURE': {
       if (!state.animation?.isAnimating) return state;
+      
+      const currentTeam = state.teams.find(t => t.id === state.currentTurnTeamId);
+      if (!currentTeam) return state;
       
       // Deduct a life for incorrect answer
       const teams = state.teams.map((t) => {
@@ -233,7 +243,41 @@ export function reducer(state: GameState, action: Action): GameState {
           currentHighlightRow: null,
           submittedAnswer: '',
           animationType: null
+        },
+        // Track last incorrect action for undo functionality
+        lastAction: {
+          type: 'incorrect_answer',
+          teamId: state.currentTurnTeamId!,
+          answerText: state.animation.submittedAnswer,
+          timestamp: Date.now()
         }
+      };
+    }
+    
+    case 'UNDO_LAST_ACTION': {
+      if (!state.lastAction || state.lastAction.type !== 'incorrect_answer') return state;
+      
+      // Only allow undo within 30 seconds and not during animations
+      const timeSinceAction = Date.now() - state.lastAction.timestamp;
+      if (timeSinceAction > 30000 || state.animation?.isAnimating) return state;
+      
+      // Restore life to the team that made the incorrect answer
+      const teams = state.teams.map((t) => {
+        if (t.id !== state.lastAction!.teamId) return t;
+        const livesRemaining = t.livesRemaining + 1;
+        return { 
+          ...t, 
+          livesRemaining, 
+          eliminated: false // Remove elimination since they got a life back
+        };
+      });
+      
+      return {
+        ...state,
+        teams,
+        currentTurnTeamId: state.lastAction.teamId, // Give turn back to the team
+        phase: 'board', // Ensure we're back in board phase
+        lastAction: undefined // Clear the undo action
       };
     }
     

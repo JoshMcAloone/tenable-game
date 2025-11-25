@@ -19,6 +19,7 @@ Layers:
 - ADVANCE_TURN: Rotates among non-eliminated teams.
 - END_ROUND: Progress or end game.
 - RESTORE_STATE: Resume from saved game state.
+- UNDO_LAST_ACTION: Restores team life and removes last incorrect answer submission (30-second time limit).
 
 ### Answer Validation System
 The game uses intelligent fuzzy matching implemented in `src/utils/fuzzyMatch.ts`:

@@ -7,7 +7,7 @@ interface Props {
 }
 
 export default function AnswerInput({ onSubmitted }: Props) {
-  const { submitAnswer, currentTurnTeamId, teams, dispatch, phase, animation } = useGame();
+  const { submitAnswer, currentTurnTeamId, teams, dispatch, phase, animation, lastAction } = useGame();
   const { t } = useLanguage();
   const activeTeam = teams.find((t) => t.id === currentTurnTeamId);
   const [input, setInput] = useState('');
@@ -78,6 +78,18 @@ export default function AnswerInput({ onSubmitted }: Props) {
           >
             {animation?.isAnimating ? t('game.checking') : t('game.submit')}
           </button>
+          {/* Undo Button */}
+          {lastAction && lastAction.type === 'incorrect_answer' && !animation?.isAnimating && (
+            <button
+              type="button"
+              onClick={() => dispatch({ type: 'UNDO_LAST_ACTION' })}
+              className="answer-input__undo"
+              title={t('game.undoTooltip')}
+              aria-label="Undo last answer"
+            >
+              ↶
+            </button>
+          )}
         </div>
 
         {/* Feedback */}

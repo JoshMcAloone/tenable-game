@@ -38,6 +38,13 @@ export interface GameState {
     isActive: boolean;
     roundIndex: number;
   };
+  // Undo state for last incorrect action
+  lastAction?: {
+    type: 'incorrect_answer';
+    teamId: string;
+    answerText: string;
+    timestamp: number;
+  };
 }
 
 export interface SubmitResult {

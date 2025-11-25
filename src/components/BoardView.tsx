@@ -9,7 +9,7 @@ import TeamPanel from './TeamPanel';
 import AnswerInput from './AnswerInput';
 
 export default function BoardView() {
-  const { rounds, currentRoundIndex, teams, currentTurnTeamId, dispatch, animation } = useGame();
+  const { rounds, currentRoundIndex, teams, currentTurnTeamId, dispatch, animation, lastAction } = useGame();
   const { t } = useLanguage();
   
   // Initialize the animation system

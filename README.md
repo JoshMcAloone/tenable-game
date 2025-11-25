@@ -18,6 +18,11 @@ React + Vite + TypeScript + Tailwind prototype of a multi-team quiz game inspire
   - Enhanced sound effects create building tension and drama
   - Quick success reveal with green pulsing animation
   - Dramatic red failure flash across entire pyramid
+* **Undo Functionality**: Quality-of-life feature for mistake recovery
+  - Undo incorrect answer submissions within 30 seconds
+  - Restores team life and allows retry
+  - Compact icon button integrated into answer input form
+  - Available in both English and Swedish interfaces
 * **Internationalization**: Full Swedish and English language support
   - Swedish as default language with English option
   - Complete UI translation including game interface

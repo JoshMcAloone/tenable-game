@@ -40,7 +40,10 @@ export const sv = {
     noActiveTeam: "INGET AKTIVT LAG",
     turn: " - DIN TUR!",
     alreadyRevealed: "REDAN AVSLÖJAD",
-    correct: "RÄTT!"
+    correct: "RÄTT!",
+    undo: "↶ ÅNGRA SENASTE SVAR",
+    undoDescription: "Återställ liv och försök igen för laget som skickade",
+    undoTooltip: "Ångra senaste svar"
   },
   team: {
     active: "AKTIV",

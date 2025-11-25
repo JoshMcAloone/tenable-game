@@ -40,7 +40,10 @@ export const en = {
     noActiveTeam: "NO ACTIVE TEAM",
     turn: "'S TURN",
     alreadyRevealed: "ALREADY REVEALED",
-    correct: "CORRECT!"
+    correct: "CORRECT!",
+    undo: "↶ UNDO LAST ANSWER",
+    undoDescription: "Restore life and retry for team that submitted",
+    undoTooltip: "Undo last turn"
   },
   team: {
     active: "ACTIVE",
