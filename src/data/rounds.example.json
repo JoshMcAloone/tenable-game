@@ -1,34 +1,98 @@
 [
   {
     "id": "round1",
-    "questionText": "What are the last 10 songs alphabetically on 'ABBA Gold'?",
+    "questionText": "Topp 10 mest omnämnda karaktärer i Harry Potter-böckerna",
     "answers": [
-      { "text": "Money, Money, Money", "revealed": false },
-      { "text": "One of Us", "revealed": false },
-      { "text": "S.O.S", "revealed": false },
-      { "text": "Super Trouper", "revealed": false },
-      { "text": "Take a Chance on Me", "revealed": false },
-      { "text": "Thank You for the Music", "revealed": false },
-      { "text": "The Name of the Game", "revealed": false },
-      { "text": "The Winner Takes It All", "revealed": false },
-      { "text": "Voulez-Vous", "revealed": false },
-      { "text": "Waterloo", "revealed": false }
+      { "clue": "1",  "text": "Harry Potter",     "alternativeText": "Harry",            "additionalText": "18 956", "revealed": false },
+      { "clue": "2",  "text": "Ron Weasley",      "alternativeText": "Ron",              "additionalText": "6 464",  "revealed": false },
+      { "clue": "3",  "text": "Hermione Granger", "alternativeText": "Hermione",         "additionalText": "5 486",  "revealed": false },
+      { "clue": "4",  "text": "Albus Dumbledore", "alternativeText": "Albus,Dumbledore", "additionalText": "2 421",  "revealed": false },
+      { "clue": "5",  "text": "Rubeus Hagrid",    "alternativeText": "Rubeus,Hagrid",    "additionalText": "2 024",  "revealed": false },
+      { "clue": "6",  "text": "Severus Snape",    "alternativeText": "Severus,Snape",    "additionalText": "1 956",  "revealed": false },
+      { "clue": "7",  "text": "Lord Voldemort",   "alternativeText": "Voldemort",        "additionalText": "1 797",  "revealed": false },
+      { "clue": "8",  "text": "Sirius Black",     "alternativeText": "Sirius",           "additionalText": "1 471",  "revealed": false },
+      { "clue": "9",  "text": "Draco Malfoy",     "alternativeText": "Malfoy,Draco",     "additionalText": "1 198",  "revealed": false },
+      { "clue": "10", "text": "Fred Weasley",     "alternativeText": "Fred",             "additionalText": "920",    "revealed": false }
     ]
   },
   {
     "id": "round2",
-    "questionText": "Name 10 common web browsers (current or historical).",
+    "questionText": "Berömda -SONs",
     "answers": [
-      { "text": "Chrome", "revealed": false },
-      { "text": "Firefox", "revealed": false },
-      { "text": "Safari", "revealed": false },
-      { "text": "Edge", "revealed": false },
-      { "text": "Opera", "revealed": false },
-      { "text": "Brave", "revealed": false },
-      { "text": "Vivaldi", "revealed": false },
-      { "text": "Internet Explorer", "revealed": false },
-      { "text": "Netscape", "revealed": false },
-      { "text": "Chromium", "revealed": false }
+      { "clue": "En av The Beatles",                                                        "text": "George Harrison",      "additionalText": "", "revealed": false },
+      { "clue": "Vampyr i en bokfilmserie",                                                 "text": "Robert Pattinson",     "additionalText": "", "revealed": false },
+      { "clue": "Mr. Bean",                                                                 "text": "Rowan Atkinson",       "additionalText": "", "revealed": false },
+      { "clue": "Tarantinos favorit motherfucker",                                          "text": "Samuel L Jackson",     "additionalText": "", "revealed": false },
+      { "clue": "Natasha Romanoff i Marvel-filmerna",                                       "text": "Scarlett Johansson",   "additionalText": "", "revealed": false },
+      { "clue": "Sveriges första kvinnliga statsminister",                                  "text": "Magdalena Andersson",  "additionalText": "", "revealed": false },
+      { "clue": "The Rock",                                                                 "text": "Dwayne Johnson",       "additionalText": "", "revealed": false },
+      { "clue": "Svensk popstjärna som slog igenom efter att ha vunnit Talang som barn",    "text": "Zara Larsson",         "additionalText": "", "revealed": false },
+      { "clue": "Tungviktsboxare känd för att en gång ha bitit en motståndares öra",        "text": "Mike Tyson",           "additionalText": "", "revealed": false },
+      { "clue": "Spirande konstnär på väg fram, född under Fiskarnas stjärntecken i Salem", "text": "Niklas Andersson",     "additionalText": "", "revealed": false }
+    ]
+  },
+  {
+    "id": "round3",
+    "questionText": "De senaste vinnarna av Melodifestivalen",
+    "answers": [
+      { "clue": "1",  "text": "KAJ",               "additionalText": "2025", "revealed": false },
+      { "clue": "2",  "text": "Marcus & Martinus", "additionalText": "2024", "revealed": false },
+      { "clue": "3",  "text": "Loreen",            "additionalText": "2023", "revealed": false },
+      { "clue": "4",  "text": "Cornelia Jakobs",   "additionalText": "2022", "revealed": false },
+      { "clue": "5",  "text": "Tusse",             "additionalText": "2021", "revealed": false },
+      { "clue": "6",  "text": "The Mamas",         "additionalText": "2020", "revealed": false },
+      { "clue": "7",  "text": "John Lundvik",      "additionalText": "2019", "revealed": false },
+      { "clue": "8",  "text": "Benjamin Ingrosso", "additionalText": "2018", "revealed": false },
+      { "clue": "9",  "text": "Robin Bengtsson",   "additionalText": "2017", "revealed": false },
+      { "clue": "10", "text": "Frans",             "additionalText": "2016", "revealed": false }
+    ]
+  },
+  {
+    "id": "round4",
+    "questionText": "Sveriges populäraste bebisnamn 2024",
+    "answers": [
+      { "clue": "1", "text": "Noah",    "additionalText": "692", "revealed": false },
+      { "clue": "2", "text": "William", "additionalText": "574", "revealed": false },
+      { "clue": "3", "text": "Alma",    "additionalText": "568", "revealed": false },
+      { "clue": "4", "text": "Hugo",    "additionalText": "567", "revealed": false },
+      { "clue": "5", "text": "Alice",   "additionalText": "565", "revealed": false },
+      { "clue": "6", "text": "Olivia",  "additionalText": "552", "revealed": false },
+      { "clue": "7", "text": "Elsa",    "additionalText": "550", "revealed": false },
+      { "clue": "8", "text": "Liam",    "additionalText": "548", "revealed": false },
+      { "clue": "9", "text": "Vera",    "additionalText": "546", "revealed": false },
+      { "clue": "10","text": "Adam/August", "alternativeText": "August,Adam", "additionalText": "538", "revealed": false }
+    ]
+  },
+  {
+    "id": "round5",
+    "questionText": "Vilka är de första tio grundämnena i det periodiska systemet?",
+    "answers": [
+      { "clue": "1",  "text": "Väte",      "alternativeText": "Hydrogen", "additionalText": "H", "revealed": false },
+      { "clue": "2",  "text": "Helium",    "alternativeText": "",         "additionalText": "He", "revealed": false },
+      { "clue": "3",  "text": "Litium",    "alternativeText": "Lithium",  "additionalText": "Li", "revealed": false },
+      { "clue": "4",  "text": "Beryllium", "alternativeText": "",         "additionalText": "Be", "revealed": false },
+      { "clue": "5",  "text": "Bor",       "alternativeText": "Boron",    "additionalText": "B", "revealed": false },
+      { "clue": "6",  "text": "Kol",       "alternativeText": "Carbon",   "additionalText": "C", "revealed": false },
+      { "clue": "7",  "text": "Kväve",     "alternativeText": "Nitrogen", "additionalText": "N", "revealed": false },
+      { "clue": "8",  "text": "Syre",      "alternativeText": "Oxygen",   "additionalText": "O", "revealed": false },
+      { "clue": "9",  "text": "Fluor",     "alternativeText": "Fluorine", "additionalText": "F", "revealed": false },
+      { "clue": "10", "text": "Neon",      "alternativeText": "",         "additionalText": "Ne", "revealed": false }
+    ]  
+  },
+  {
+    "id": "round6",
+    "questionText": "De första Disney-prinsessorna",
+    "answers": [
+      { "clue": "1",  "text": "Snövit",      "alternativeText": "Snow White",         "additionalText": "1937", "revealed": false },
+      { "clue": "2",  "text": "Askungen",    "alternativeText": "Cinderella",         "additionalText": "1950", "revealed": false },
+      { "clue": "3",  "text": "Aurora",      "alternativeText": "Sleeping Beauty",    "additionalText": "1959", "revealed": false },
+      { "clue": "4",  "text": "Ariel",       "alternativeText": "The Little Mermaid", "additionalText": "1989", "revealed": false },
+      { "clue": "5",  "text": "Belle",       "alternativeText": "",                   "additionalText": "1991", "revealed": false },
+      { "clue": "6",  "text": "Jasmin",      "alternativeText": "Jasmine",            "additionalText": "1992", "revealed": false },
+      { "clue": "7",  "text": "Pocahontas",  "alternativeText": "",                   "additionalText": "1995", "revealed": false },
+      { "clue": "8",  "text": "Mulan",       "alternativeText": "",                   "additionalText": "1998", "revealed": false },
+      { "clue": "9",  "text": "Tiana",       "alternativeText": "",                   "additionalText": "2009", "revealed": false },
+      { "clue": "10", "text": "Rapunzel",    "alternativeText": "",                   "additionalText": "2010", "revealed": false }
     ]
   }
 ]

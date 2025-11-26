@@ -48,17 +48,25 @@ function normalizeForMatching(text: string): string {
   return text
     .toLowerCase()
     .trim()
+    // Handle common special characters that should be treated as spaces or equivalents
+    .replace(/&/g, 'and')
+    .replace(/\+/g, 'and')
+    // Handle Swedish conjunctions and equivalents
+    .replace(/\boch\b/g, 'and')
+    .replace(/\bamt\b/g, 'and') // German
+    .replace(/\bet\b/g, 'and')  // French/Danish/Norwegian
+    .replace(/\by\b/g, 'and')   // Spanish
     // Handle abbreviations with dots (e.g., "S.O.S" -> "SOS")
-    .replace(/\b([a-z])\.(?=\s*[a-z]\.|\s*[a-z]\b)/gi, '$1')
+    .replace(/\b([a-z])\.(?=\s*[a-z]\.\s*[a-z]\b)/gi, '$1')
     // Remove remaining punctuation but keep apostrophes in contractions
-    .replace(/[^\w\s']/g, ' ')
+    .replace(/[^\w\s'åäöæøå]/g, ' ') // Include Swedish/Nordic characters
     // Normalize whitespace
     .replace(/\s+/g, ' ')
     .trim()
-    // Remove common articles at the beginning
-    .replace(/^(the|a|an)\s+/i, '')
+    // Remove common articles at the beginning (English and Swedish)
+    .replace(/^(the|a|an|en|ett|den|det)\s+/i, '')
     // Remove common articles in the middle (be careful not to break real words)
-    .replace(/\s+(the|a|an)\s+/gi, ' ');
+    .replace(/\s+(the|a|an|en|ett|den|det)\s+/gi, ' ');
 }
 
 /**
@@ -122,7 +130,7 @@ export function fuzzyMatchAnswer(userAnswer: string, correctAnswer: string): num
  * Returns true if the answer is close enough to be considered correct
  * Checks both primary text and alternativeText (if provided)
  */
-export function isAnswerAcceptable(userAnswer: string, correctAnswer: string, threshold: number = 0.8, alternativeText?: string): boolean {
+export function isAnswerAcceptable(userAnswer: string, correctAnswer: string, threshold: number = 0.85, alternativeText?: string): boolean {
   // Check primary text first
   const primaryScore = fuzzyMatchAnswer(userAnswer, correctAnswer);
   if (primaryScore >= threshold) {

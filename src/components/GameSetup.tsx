@@ -43,13 +43,30 @@ export default function GameSetup() {
   }
 
   function newGame() {
+    // Validate team names before starting
+    const trimmedNames = names.map(name => name.trim());
+    const emptyNames = trimmedNames.filter(name => name.length === 0);
+    
+    if (emptyNames.length > 0) {
+      alert('Alla lag måste ha namn innan spelet kan startas.');
+      return;
+    }
+    
+    // Check for duplicate team names
+    const uniqueNames = new Set(trimmedNames);
+    if (uniqueNames.size !== trimmedNames.length) {
+      alert('Alla lag måste ha unika namn.');
+      return;
+    }
+    
     // Clear any cached game before starting fresh
     if (hasResume) {
       localStorage.removeItem('tenable-game-state');
       setHasResume(false);
       setSavedState(null);
     }
-    const teams = names.map((name, i) => ({
+    
+    const teams = trimmedNames.map((name, i) => ({
       id: `team${i}`,
       name,
       score: 0,

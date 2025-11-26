@@ -137,6 +137,13 @@ The validation system now checks for:
 - **Backwards Compatibility**: Existing saved games work properly with default rotation index
 - **Game Balance**: Eliminates first-player advantage by giving each team equal opportunity to start rounds
 
+### Progressive Reveal & Animation Fixes (November 2025)
+- **Sequential Scanning**: Progressive reveal now scans through all rows smoothly without skipping
+- **Smart Stopping**: Animation stops at top-most unrevealed answer instead of continuing unnecessarily
+- **Fireworks Overflow**: Fixed horizontal scrollbar issue during celebration animations
+- **Viewport Constraints**: Particles are now contained within screen bounds
+- **Performance**: Improved animation efficiency and visual consistency
+
 See `docs/requirements_v1.md` for updated game rules and acceptance criteria.
 
 ## Usage Examples

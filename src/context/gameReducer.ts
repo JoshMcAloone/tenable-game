@@ -91,13 +91,10 @@ export function reducer(state: GameState, action: Action): GameState {
       
       const round = state.rounds[state.currentRoundIndex];
       
-      // Create list of ONLY UNREVEALED answer positions going from bottom to top
-      const unrevealedPositions = round.answers
-        .map((answer, index) => ({ answer, index }))
-        .filter(({ answer }) => !answer.revealed)
-        .reverse(); // Start from bottom
+      // Check if there are any unrevealed answers left
+      const hasUnrevealedAnswers = round.answers.some(answer => !answer.revealed);
       
-      if (unrevealedPositions.length === 0) {
+      if (!hasUnrevealedAnswers) {
         // No unrevealed answers left - immediate failure
         return {
           ...state,
@@ -109,13 +106,13 @@ export function reducer(state: GameState, action: Action): GameState {
         };
       }
       
-      // Start highlighting the bottom-most unrevealed row
-      const firstRowIndex = unrevealedPositions[0].index;
+      // Start highlighting from the bottom row (index 9)
+      const bottomRowIndex = round.answers.length - 1;
       return {
         ...state,
         animation: {
           ...state.animation,
-          currentHighlightRow: firstRowIndex,
+          currentHighlightRow: bottomRowIndex,
           animationType: 'scanning',
           checkedUnrevealedAnswers: [] // Track which unrevealed answers we've checked
         }
@@ -148,18 +145,11 @@ export function reducer(state: GameState, action: Action): GameState {
         };
       }
       
-      // Get only unrevealed answer positions from bottom to top for progression
-      const unrevealedPositions = round.answers
-        .map((answer, index) => ({ answer, index }))
-        .filter(({ answer }) => !answer.revealed)
-        .reverse();
+      // Move to the next row up (currentRow - 1)
+      const nextRowIndex = currentRow - 1;
       
-      // Check if we've now checked all unrevealed answers
-      const totalUnrevealedCount = unrevealedPositions.length;
-      const uniqueCheckedAnswers = [...new Set(updatedCheckedAnswers)];
-      
-      if (uniqueCheckedAnswers.length >= totalUnrevealedCount) {
-        // We've checked all unrevealed answers without finding a match - trigger failure
+      if (nextRowIndex < 0) {
+        // Reached the top without finding a match - trigger failure
         return {
           ...state,
           animation: {
@@ -170,12 +160,13 @@ export function reducer(state: GameState, action: Action): GameState {
         };
       }
       
-      // Find the next unrevealed answer to check
-      const currentRowPosition = unrevealedPositions.findIndex(({ index }) => index === currentRow);
-      const nextRowIndex = unrevealedPositions[currentRowPosition + 1]?.index;
+      // Check if there are any unrevealed answers above the next position
+      const hasUnrevealedAnswersAbove = round.answers
+        .slice(0, nextRowIndex + 1) // Include nextRowIndex and all above it
+        .some(answer => !answer.revealed);
       
-      if (nextRowIndex === undefined) {
-        // No more unrevealed answers to check - trigger failure
+      if (!hasUnrevealedAnswersAbove) {
+        // No unrevealed answers above - we've checked all possible matches, trigger failure
         return {
           ...state,
           animation: {
@@ -186,7 +177,7 @@ export function reducer(state: GameState, action: Action): GameState {
         };
       }
       
-      // Move to next unrevealed answer
+      // Continue to next row
       return {
         ...state,
         animation: {

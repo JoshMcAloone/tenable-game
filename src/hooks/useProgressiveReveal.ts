@@ -119,7 +119,13 @@ export function useProgressiveReveal() {
   }, [shouldPlayHeartbeat, livesRemaining, TIMING.HEARTBEAT_INTERVAL, activeTeam, animation?.isAnimating]);
 
   useEffect(() => {
-    if (!animation?.isAnimating || isProcessingRef.current) return;
+    if (!animation?.isAnimating || isProcessingRef.current) {
+      // Reset processing flag if animation stopped
+      if (!animation?.isAnimating) {
+        isProcessingRef.current = false;
+      }
+      return;
+    }
 
     // Clear any existing timeout to prevent overlapping animations
     if (timeoutRef.current) {
@@ -134,7 +140,8 @@ export function useProgressiveReveal() {
     if (animation.animationType === 'scanning' && animation.currentHighlightRow === null) {
       // Initialize the scanning with optimized delay
       timeoutRef.current = setTimeout(() => {
-        if (animation?.isAnimating) { // Double-check animation is still active
+        // Triple-check animation is still active and unchanged
+        if (animation?.isAnimating && animation.animationType === 'scanning' && animation.currentHighlightRow === null) {
           dispatch({ type: 'START_REVEAL_ANIMATION', answerText: animation.submittedAnswer });
         }
         isProcessingRef.current = false;
@@ -157,7 +164,10 @@ export function useProgressiveReveal() {
       playRowSound(invertedStep, totalSteps);
       
       timeoutRef.current = setTimeout(() => {
-        if (animation?.isAnimating && animation.animationType === 'scanning') {
+        // Verify animation state hasn't changed during timeout
+        if (animation?.isAnimating && 
+            animation.animationType === 'scanning' && 
+            animation.currentHighlightRow === animation.currentHighlightRow) {
           dispatch({ type: 'HIGHLIGHT_ROW', rowIndex: animation.currentHighlightRow! });
         }
         isProcessingRef.current = false;

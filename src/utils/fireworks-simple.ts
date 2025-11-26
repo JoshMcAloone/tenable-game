@@ -13,6 +13,10 @@ class FireworksSystem {
     
     this.isRunning = true;
     
+    // Prevent body scrollbars during animation
+    const originalBodyOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    
     // Create canvas
     const canvas = document.createElement('canvas');
     canvas.style.cssText = `
@@ -24,6 +28,7 @@ class FireworksSystem {
       pointer-events: none;
       z-index: 9999;
       background: transparent;
+      overflow: hidden;
     `;
     
     canvas.width = window.innerWidth;
@@ -98,6 +103,11 @@ class FireworksSystem {
             p.vx *= 0.99; // air resistance
             p.life--;
             
+            // Constrain particles to stay within viewport bounds
+            if (p.x < 0 || p.x > canvas.width || p.y < 0 || p.y > canvas.height) {
+              p.life = 0; // Remove particles that go off-screen
+            }
+            
             if (p.life > 0) {
               const alpha = p.life / p.maxLife;
               ctx!.fillStyle = firework.color.replace('60%', `60%, ${alpha}`);
@@ -139,6 +149,8 @@ class FireworksSystem {
       clearInterval(interval);
       setTimeout(() => {
         canvas.remove();
+        // Restore original body overflow
+        document.body.style.overflow = originalBodyOverflow;
       }, 2000); // Let particles finish
     }, 6000);
   }
