@@ -11,7 +11,8 @@ import { GameProvider } from './context/GameContext';
 import { LanguageProvider } from './context/LanguageContext';
 
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sw.js').catch((err) => console.error('SW registration failed', err));
+  const swUrl = import.meta.env.BASE_URL + 'sw.js';
+  navigator.serviceWorker.register(swUrl).catch((err) => console.error('SW registration failed', err));
 }
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
