@@ -26,6 +26,7 @@ export const INITIAL_STATE: GameState = {
   phase: 'setup',
   teams: [],
   rounds: loadRounds() as QuestionSet[],
+  firstTeamRotationIndex: 0,
   animation: {
     isAnimating: false,
     currentHighlightRow: null,
@@ -60,7 +61,7 @@ export function nextTeamId(state: GameState): string | null {
 export function reducer(state: GameState, action: Action): GameState {
   switch (action.type) {
     case 'START_GAME': {
-      return { ...state, teams: action.teams, phase: 'question', currentRoundIndex: 0, currentTurnTeamId: action.teams[0]?.id || null };
+      return { ...state, teams: action.teams, phase: 'question', currentRoundIndex: 0, currentTurnTeamId: action.teams[0]?.id || null, firstTeamRotationIndex: 0 };
     }
     case 'START_ROUND': {
       if (state.phase !== 'question') return state;
@@ -370,12 +371,17 @@ export function reducer(state: GameState, action: Action): GameState {
         eliminated: false // Reset elimination status for new round
       }));
       
+      // Calculate next starting team using rotation
+      const nextFirstTeamIndex = (state.firstTeamRotationIndex + 1) % state.teams.length;
+      const nextStartingTeamId = teamsWithResetLives[nextFirstTeamIndex]?.id || null;
+      
       return {
         ...state,
         teams: teamsWithResetLives,
         currentRoundIndex: nextIndex,
         phase: 'question',
-        currentTurnTeamId: teamsWithResetLives[0]?.id || null, // Start with first team
+        currentTurnTeamId: nextStartingTeamId,
+        firstTeamRotationIndex: nextFirstTeamIndex,
         // Reset celebration state for new round
         celebration: {
           isActive: false,
@@ -425,6 +431,7 @@ export function reducer(state: GameState, action: Action): GameState {
         phase: incoming.phase,
         teams,
         rounds: incoming.rounds && Array.isArray(incoming.rounds) ? incoming.rounds : loadRounds(),
+        firstTeamRotationIndex: typeof incoming.firstTeamRotationIndex === 'number' ? incoming.firstTeamRotationIndex : 0,
       };
       
       return newState;

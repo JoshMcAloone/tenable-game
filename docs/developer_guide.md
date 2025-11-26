@@ -37,9 +37,15 @@ interface Answer {
 - START_ROUND: Enter board phase.
 - SUBMIT_ANSWER: Mutates answers, scoring, elimination (uses fuzzy matching for validation).
 - ADVANCE_TURN: Rotates among non-eliminated teams.
-- END_ROUND: Progress or end game.
+- END_ROUND: Progress or end game, **rotates starting team for next round**.
 - RESTORE_STATE: Resume from saved game state.
 - UNDO_LAST_ACTION: Restores team life and removes last incorrect answer submission (30-second time limit).
+
+### Team Starting Rotation
+Each round begins with a different team to ensure fair gameplay:
+- **State Field**: `firstTeamRotationIndex` tracks which team starts next round
+- **Rotation Logic**: `(currentIndex + 1) % totalTeams` in END_ROUND action
+- **Backwards Compatibility**: Missing field defaults to 0 for saved games
 
 ### Answer Validation System
 The game uses intelligent fuzzy matching implemented in `src/utils/fuzzyMatch.ts`:

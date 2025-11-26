@@ -32,7 +32,7 @@ A lightweight multi-team quiz game inspired by the Tenable TV format. Players (t
 - Reject empty submissions.
 - **Enhanced Answer Acceptance System**: Flexible answer validation with multiple acceptance paths:
   - **Primary Text**: Standard answer text that players must match
-  - **Alternative Text**: Optional alternative form of the answer that is also acceptable (e.g., "Harry" for "Harry Potter")
+  - **Alternative Text**: Optional comma-separated list of alternative forms that are also acceptable (e.g., "Harry,Potter,Harry James Potter" for "Harry Potter")
   - **Custom Clues**: Each answer can have a custom clue text displayed for unrevealed answers instead of hardcoded numbers 1-10
   - **Additional Information**: Optional extra text shown in parentheses next to revealed answers (e.g., years, scores, statistics)
 - **Fuzzy Matching System**: Intelligent answer validation using similarity scoring applied to both primary and alternative text:
@@ -48,7 +48,7 @@ A lightweight multi-team quiz game inspired by the Tenable TV format. Players (t
     - "Mama Mia" matches "Mamma Mia" (single character difference)
     - "winner takes it all" matches "The Winner Takes It All" (case insensitive)
     - "The Winner Take It All" matches "The Winner Takes It All" (typo tolerance)
-    - "Harry" matches answer with text "Harry Potter" and alternativeText "Harry"
+    - "Harry" matches answer with text "Harry Potter" and alternativeText "Harry,Potter,Harry James Potter"
 
 ## 6. Data Model (MVP)
 QuestionSet:
@@ -57,7 +57,7 @@ QuestionSet:
 - answers: array[Answer]
 Answer:
 - text (primary answer text)
-- alternativeText (optional - alternative accepted answer text for fuzzy matching)
+- alternativeText (optional - comma-separated list of alternative accepted answer texts for fuzzy matching)
 - clue (custom placeholder text shown for unrevealed answers - replaces hardcoded numbers)
 - additionalText (optional - extra information shown in parentheses next to revealed answers, e.g., years, scores)
 - revealed (bool)
@@ -73,10 +73,16 @@ GameState:
 - phase (question|board|ended)
 - teams: array[Team]
 - rounds: array[QuestionSet]
+- firstTeamRotationIndex (tracks which team should start each new round for fair rotation)
 
 ## 7. Turn Logic
 - Maintain ordered list of active teams.
 - After each submission, select next team with lives > 0.
+- **Starting Team Rotation**: Each new round begins with a different team to ensure fairness:
+  - Round 1: Team 1 goes first
+  - Round 2: Team 2 goes first
+  - Round 3: Team 3 goes first (or back to Team 1 if only 2 teams)
+  - Pattern continues cyclically through all teams
 - If only one team left but answers remain, that team continues until round ends or elimination.
 
 ## 8. Scoring
@@ -143,6 +149,7 @@ Refer to `Example question with answers.md` for sample board content structure.
 - Correct answers increment score and reveal associated slot.
 - Incorrect answers decrement lives and eliminate teams at 0.
 - Game rotates turns only among non-eliminated teams.
+- **Each new round starts with the next team in sequence** to ensure fair gameplay.
 - Round ends automatically when all 10 answers revealed or all teams eliminated.
 - Summary shows total scores after final round.
 

@@ -28,6 +28,7 @@ export interface GameState {
   phase: Phase;
   teams: Team[];
   rounds: QuestionSet[];
+  firstTeamRotationIndex: number; // Index of team that should start the next round
   // Animation state for progressive reveal
   animation?: {
     isAnimating: boolean;

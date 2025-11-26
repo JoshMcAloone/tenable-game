@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useReducer, ReactNode, useEffect } from 'react';
-import { GameState, SubmitResult } from '../types/domain';
+import { GameState, SubmitResult, Answer } from '../types/domain';
 import { reducer, INITIAL_STATE, Action } from './gameReducer';
 import { isAnswerAcceptable } from '../utils/fuzzyMatch';
 
@@ -43,14 +43,14 @@ export function GameProvider({ children }: { children: ReactNode }) {
     }
     
     // Find the best fuzzy match from unrevealed answers
-    let bestMatch = null;
+    let bestMatch: Answer | undefined = undefined;
     let bestScore = 0;
     
     for (const answer of round.answers) {
       if (answer.revealed) continue; // Skip already revealed answers
       
-      // Check if this answer is acceptable with fuzzy matching
-      if (isAnswerAcceptable(userInput, answer.text)) {
+      // Check if this answer is acceptable with fuzzy matching (including alternatives)
+      if (isAnswerAcceptable(userInput, answer.text, 0.8, answer.alternativeText)) {
         bestMatch = answer;
         bestScore = 1; // We found an acceptable match
         break;

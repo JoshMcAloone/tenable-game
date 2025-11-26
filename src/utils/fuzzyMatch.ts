@@ -129,11 +129,15 @@ export function isAnswerAcceptable(userAnswer: string, correctAnswer: string, th
     return true;
   }
   
-  // Check alternative text if provided
-  if (alternativeText) {
-    const alternativeScore = fuzzyMatchAnswer(userAnswer, alternativeText);
-    if (alternativeScore >= threshold) {
-      return true;
+  // Check alternative texts if provided (comma-separated)
+  if (alternativeText && alternativeText.trim()) {
+    const alternatives = alternativeText.split(',').map(alt => alt.trim()).filter(alt => alt.length > 0);
+    
+    for (const alternative of alternatives) {
+      const alternativeScore = fuzzyMatchAnswer(userAnswer, alternative);
+      if (alternativeScore >= threshold) {
+        return true;
+      }
     }
   }
   

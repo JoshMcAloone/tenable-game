@@ -128,7 +128,14 @@ The validation system now checks for:
 - **Maintainable Code**: Well-organized, production-ready implementation
 - **Enhanced Documentation**: Comprehensive pyramid improvement documentation added
 
-See `docs/pyramid_ui_improvements.md` for detailed technical implementation.
+### Team Starting Rotation (November 2025)
+- **Fair Turn Order**: Each round now starts with a different team in rotation
+- **Rotation Logic**: Teams cycle through starting positions (Team 1 → Team 2 → Team 3 → Team 1...)
+- **State Management**: Added `firstTeamRotationIndex` field to track current rotation position
+- **Backwards Compatibility**: Existing saved games work properly with default rotation index
+- **Game Balance**: Eliminates first-player advantage by giving each team equal opportunity to start rounds
+
+See `docs/requirements_v1.md` for updated game rules and acceptance criteria.
 
 ## Usage Examples
 
