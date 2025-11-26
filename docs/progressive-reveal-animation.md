@@ -164,7 +164,27 @@ testDramaticMoments();
 - **Accessibility options**: Motion reduction settings
 
 ### Performance Considerations
-- **Animation cleanup**: Automatic timeout clearing
+- **Animation cleanup**: Automatic timeout clearing with improved race condition handling
 - **Audio context management**: Proper resource disposal
-- **State synchronization**: Prevents race conditions
+- **State synchronization**: Enhanced prevention of race conditions and animation interruption
 - **Memory efficiency**: No persistent animation objects
+- **Rapid Click Protection**: Improved handling of rapid user interactions
+
+### Animation State Management
+Enhanced animation system includes robust state validation:
+
+#### Race Condition Prevention
+```typescript
+// Triple-check animation state before dispatching actions
+if (animation?.isAnimating && 
+    animation.animationType === 'scanning' && 
+    animation.currentHighlightRow === animation.currentHighlightRow) {
+  dispatch({ type: 'HIGHLIGHT_ROW', rowIndex: animation.currentHighlightRow! });
+}
+```
+
+#### Improved Cleanup
+- **Processing flags**: Prevents overlapping animations with `isProcessingRef`
+- **State validation**: Verifies animation state hasn't changed during timeouts
+- **Better cleanup**: Resets processing flags when animations stop unexpectedly
+- **Timeout management**: Proper clearing of all timeouts to prevent memory leaks

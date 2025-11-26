@@ -47,6 +47,35 @@ Each round begins with a different team to ensure fair gameplay:
 - **Rotation Logic**: `(currentIndex + 1) % totalTeams` in END_ROUND action
 - **Backwards Compatibility**: Missing field defaults to 0 for saved games
 
+### Team Setup Validation
+The game includes comprehensive validation during team setup in `src/components/GameSetup.tsx`:
+
+#### Validation Rules
+- **Empty Names**: Prevents starting with empty or whitespace-only team names
+- **Duplicate Names**: Ensures all team names are unique
+- **Name Trimming**: Automatically trims whitespace from team names
+- **User Feedback**: Shows Swedish error messages for validation failures
+
+#### Implementation
+```typescript
+function newGame() {
+  const trimmedNames = names.map(name => name.trim());
+  const emptyNames = trimmedNames.filter(name => name.length === 0);
+  
+  if (emptyNames.length > 0) {
+    alert('Alla lag måste ha namn innan spelet kan startas.');
+    return;
+  }
+  
+  const uniqueNames = new Set(trimmedNames);
+  if (uniqueNames.size !== trimmedNames.length) {
+    alert('Alla lag måste ha unika namn.');
+    return;
+  }
+  // ... proceed with game start
+}
+```
+
 ### Answer Validation System
 The game uses intelligent fuzzy matching implemented in `src/utils/fuzzyMatch.ts`:
 
@@ -88,7 +117,7 @@ When teams reach critical state (1 life remaining), the game activates an immers
 - **Levenshtein Distance**: Calculates character-level edit distance for typo detection
 - **Text Normalization**: Removes articles, punctuation, normalizes whitespace/case
 - **Similarity Scoring**: Combines character similarity with word overlap bonuses
-- **Configurable Threshold**: Default 80% similarity required for acceptance
+- **Configurable Threshold**: Default 85% similarity required for acceptance
 
 ### Integration
 The `submitAnswer` function in `GameContext.tsx`:
