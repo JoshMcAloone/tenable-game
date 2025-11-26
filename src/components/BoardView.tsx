@@ -7,6 +7,7 @@ import { useProgressiveReveal } from '../hooks/useProgressiveReveal';
 import { usePyramidCelebration } from '../hooks/usePyramidCelebration';
 import TeamPanel from './TeamPanel';
 import AnswerInput from './AnswerInput';
+import '../styles/board-view.css';
 
 export default function BoardView() {
   const { rounds, currentRoundIndex, teams, currentTurnTeamId, dispatch, animation, lastAction } = useGame();
@@ -81,26 +82,26 @@ export default function BoardView() {
   const revealedCount = round.answers.filter((a) => a.revealed).length;
 
   return (
-    <div className="min-h-screen flex flex-col bg-black">
+    <div className="board-view">
       {/* Compact header with better layout */}
-      <div className="bg-black border-b border-cyan-400 text-white px-6 py-3 shadow-lg shadow-cyan-400/20">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <div className="flex items-center gap-6">
-            <h1 className="text-xl font-bold text-green-400 tracking-wider filter drop-shadow-[0_0_8px_rgba(57,255,20,0.8)]">{t('game.title')}</h1>
-            <div className="text-cyan-300">
-              <span className="text-sm font-medium">{t('game.round')} {currentRoundIndex + 1}</span>
-              <span className="mx-2">•</span>
-              <span className="text-sm font-bold text-green-400">{revealedCount}/{round.answers.length} {t('game.found')}</span>
+      <div className="board-header">
+        <div className="board-header__container">
+          <div className="board-header__left">
+            <h1 className="board-header__title">{t('game.title')}</h1>
+            <div className="board-header__info">
+              <span className="board-header__round">{t('game.round')} {currentRoundIndex + 1}</span>
+              <span className="board-header__separator">•</span>
+              <span className="board-header__progress">{revealedCount}/{round.answers.length} {t('game.found')}</span>
             </div>
           </div>
         </div>
       </div>
       {/* Question with better integration */}
-      <div className="px-6 py-4 text-center bg-black border-b border-purple-600 shadow-lg shadow-purple-600/20">
-        <h2 className="text-xl font-bold text-white tracking-wide max-w-4xl mx-auto" title={round.questionText}>{round.questionText}</h2>
+      <div className="board-question">
+        <h2 className="board-question__text" title={round.questionText}>{round.questionText}</h2>
       </div>
       {/* Main area with optimized layout */}
-      <div className="flex-1 flex max-w-full w-full mx-auto overflow-hidden">
+      <div className="board-main">
         {/* Left Status Panel */}
         <div className="status-panel status-panel--left">
           <div className="status-panel__container">
@@ -118,9 +119,9 @@ export default function BoardView() {
         </div>
         
         {/* Central Game Board - Optimized Layout */}
-        <div className="flex-1 flex flex-col lg:flex-row gap-6 p-6 bg-black overflow-hidden max-w-7xl mx-auto">
+        <div className="board-content">
           {/* Board & Input Container */}
-          <div className="flex-1 flex flex-col justify-center items-center min-h-0">
+          <div className="board-game-area">
             {/* Pyramid Board - Enhanced Layout */}
             <div className={`pyramid-container w-full ${animation?.animationType === 'failure' ? 'pyramid-container--failure' : ''}`}>
               
@@ -193,18 +194,18 @@ export default function BoardView() {
             </div>
             
             {/* Answer Input - Prominent and Clean */}
-            <div className="w-full max-w-2xl mt-6">
+            <div className="board-input-area">
               <AnswerInput />
             </div>
           </div>
           
           {/* Teams Sidebar - Streamlined */}
-          <div className="w-full lg:w-80 flex flex-col">
-            <div className="bg-black border border-green-400 rounded-lg p-3 mb-4 shadow-lg shadow-green-400/20">
-              <h3 className="font-bold text-green-400 text-center tracking-wider filter drop-shadow-[0_0_6px_rgba(57,255,20,0.8)]">{t('setup.teamNames')}</h3>
+          <div className="board-sidebar">
+            <div className="board-sidebar__header">
+              <h3 className="board-sidebar__title">{t('setup.teamNames')}</h3>
             </div>
             
-            <div className="flex-1 space-y-3 overflow-y-auto max-h-[60vh]">
+            <div className="board-sidebar__teams">
               {teams.map((team) => (
                 <TeamPanel 
                   key={team.id} 
@@ -216,10 +217,10 @@ export default function BoardView() {
             </div>
             
             {allRevealed && (
-              <div className="bg-black border border-green-400 rounded-lg p-4 mt-4 shadow-lg shadow-green-400/30">
+              <div className="board-sidebar__end-round">
                 <button
                   onClick={() => dispatch({ type: 'END_ROUND' })}
-                  className="w-full px-4 py-3 bg-green-400 text-black font-bold rounded-lg tracking-wider shadow-lg shadow-green-400/50 hover:scale-105 transition filter drop-shadow-[0_0_8px_rgba(57,255,20,0.8)] cursor-pointer"
+                  className="board-end-round-button"
                 >
                   {t('game.endRound')}
                 </button>

@@ -3,7 +3,7 @@
   display: none; /* Hidden on small screens */
   flex-direction: column;
   background-color: black;
-  border: 1px solid #00ffff; /* cyan-400 */
+  border: 1px solid #39ff14; /* green-400 - matches pyramid */
   padding: 0.5rem; /* p-2 */
   width: 5rem; /* w-20 */
   height: 100vh; /* Full viewport height */
@@ -21,12 +21,12 @@
 
 .status-panel--left {
   left: 0; /* Position at left edge */
-  border-right: 1px solid #00ffff;
+  border-right: 1px solid #39ff14;
 }
 
 .status-panel--right {
   right: 0; /* Position at right edge */
-  border-left: 1px solid #00ffff;
+  border-left: 1px solid #39ff14;
 }
 
 .status-panel__container {
@@ -46,11 +46,11 @@
 }
 
 .status-panel__bar--primary {
-  background-color: #ff00ff; /* Magenta/Purple */
+  background-color: #39ff14; /* Green - matches pyramid */
 }
 
 .status-panel__bar--secondary {
-  background-color: #00ffff; /* Cyan */
+  background-color: #8b5cf6; /* Purple - complements pyramid purple */
 }
 
 /* Dynamic bar width animations */

@@ -165,7 +165,7 @@
 .team-panel__stat-value {
   font-size: 1rem; /* text-base */
   font-weight: bold;
-  color: #00ffff; /* cyan-400 */
+  color: #8b5cf6; /* purple-500 */
 }
 
 .team-panel--active .team-panel__stat-value {
@@ -420,7 +420,7 @@
 }
 
 .team-panel__score--inactive {
-  color: #00ffff; /* cyan-400 */
+  color: #8b5cf6; /* purple-500 */
 }
 
 .team-panel__lives {

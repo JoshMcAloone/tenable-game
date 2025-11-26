@@ -4,11 +4,11 @@
   flex-direction: column;
   gap: 1.5rem; /* Increased spacing */
   background-color: black;
-  border: 2px solid #00ffff; /* cyan-400 */
+  border: 2px solid #8b5cf6; /* purple-500 - matches theme */
   border-radius: 0.75rem; /* More rounded */
   padding: 1.5rem; /* Generous padding */
-  box-shadow: 0 20px 25px -5px rgba(0, 255, 255, 0.3), 0 10px 10px -5px rgba(0, 255, 255, 0.1);
-  filter: drop-shadow(0 0 12px rgba(0, 255, 255, 0.4));
+  box-shadow: 0 20px 25px -5px rgba(139, 92, 246, 0.3), 0 10px 10px -5px rgba(139, 92, 246, 0.1);
+  filter: drop-shadow(0 0 12px rgba(139, 92, 246, 0.4));
 }
 
 .answer-input__team-indicator {
@@ -59,7 +59,7 @@
   flex: 1;
   border-radius: 0.5rem; /* More rounded */
   background-color: rgba(0, 0, 0, 0.8);
-  border: 2px solid #00ffff; /* cyan-400, thicker border */
+  border: 2px solid #8b5cf6; /* purple-500, thicker border */
   padding: 1rem 1.25rem; /* Larger padding */
   color: white;
   font-size: 1.25rem; /* Larger text */
@@ -67,12 +67,12 @@
   font-weight: 500; /* Medium weight */
   letter-spacing: 0.1em; /* tracking-wider */
   transition: all 0.3s;
-  box-shadow: 0 10px 15px -3px rgba(0, 255, 255, 0.2);
-  filter: drop-shadow(0 0 6px rgba(0, 255, 255, 0.4));
+  box-shadow: 0 10px 15px -3px rgba(139, 92, 246, 0.2);
+  filter: drop-shadow(0 0 6px rgba(139, 92, 246, 0.4));
 }
 
 .answer-input__field::placeholder {
-  color: rgba(0, 255, 255, 0.6); /* More visible placeholder */
+  color: rgba(139, 92, 246, 0.6); /* Purple placeholder */
 }
 
 .answer-input__field:focus {
@@ -162,10 +162,10 @@
 }
 
 .answer-input__feedback--info {
-  color: #00ffff; /* cyan-400 */
-  border-color: #00ffff; /* cyan-400 */
-  box-shadow: 0 10px 15px -3px rgba(0, 255, 255, 0.3);
-  filter: drop-shadow(0 0 8px rgba(0, 255, 255, 0.6));
+  color: #8b5cf6; /* purple-500 */
+  border-color: #8b5cf6; /* purple-500 */
+  box-shadow: 0 10px 15px -3px rgba(139, 92, 246, 0.3);
+  filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.6));
 }
 
 .answer-input__feedback--error {

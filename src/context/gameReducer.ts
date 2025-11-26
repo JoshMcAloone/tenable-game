@@ -206,10 +206,19 @@ export function reducer(state: GameState, action: Action): GameState {
         return { ...t, score: t.score + 1 };
       });
       
+      const currentTeam = teams.find(t => t.id === state.currentTurnTeamId);
+      
       const updatedRounds = state.rounds.map((r, idx) => {
         if (idx !== state.currentRoundIndex) return r;
         const newAnswers = r.answers.map((a, i) => 
-          i === answerIndex ? { ...a, revealed: true } : a
+          i === answerIndex ? { 
+            ...a, 
+            revealed: true,
+            foundBy: currentTeam ? {
+              teamId: currentTeam.id,
+              teamName: currentTeam.name
+            } : undefined
+          } : a
         );
         return { ...r, answers: newAnswers };
       });

@@ -1,7 +1,7 @@
 [
   {
     "id": "round1",
-    "questionText": "Topp 10 mest omnämnda karaktärer i Harry Potter-böckerna",
+    "questionText": "De mest omnämnda karaktärerna i Harry Potter-böckerna",
     "answers": [
       { "clue": "1",  "text": "Harry Potter",     "alternativeText": "Harry",            "additionalText": "18 956", "revealed": false },
       { "clue": "2",  "text": "Ron Weasley",      "alternativeText": "Ron",              "additionalText": "6 464",  "revealed": false },
@@ -65,7 +65,7 @@
   },
   {
     "id": "round5",
-    "questionText": "Vilka är de första tio grundämnena i det periodiska systemet?",
+    "questionText": "De första grundämnena i det periodiska systemet",
     "answers": [
       { "clue": "1",  "text": "Väte",      "alternativeText": "Hydrogen", "additionalText": "H", "revealed": false },
       { "clue": "2",  "text": "Helium",    "alternativeText": "",         "additionalText": "He", "revealed": false },

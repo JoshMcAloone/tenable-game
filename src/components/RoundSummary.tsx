@@ -63,7 +63,7 @@ export default function RoundSummary() {
                       className="bg-green-400 border-2 border-green-300 rounded-lg p-4 text-black shadow-lg transform hover:scale-105 transition-transform"
                       style={{ filter: 'drop-shadow(0 0 12px rgba(57,255,20,0.7))' }}
                     >
-                      {/* Header with clue */}
+                      {/* Header with clue and team attribution */}
                       <div className="flex items-center justify-between mb-3">
                         <div className="flex items-center gap-2">
                           {answer.clue && answer.clue.length <= 3 && (
@@ -72,6 +72,13 @@ export default function RoundSummary() {
                             </span>
                           )}
                         </div>
+                        {/* Team Attribution Badge */}
+                        {answer.foundBy && (
+                          <div className="flex items-center gap-1 bg-green-600 text-white px-2 py-1 rounded-full text-xs font-semibold">
+                            <span className="w-2 h-2 bg-white rounded-full opacity-80"></span>
+                            <span>{answer.foundBy.teamName}</span>
+                          </div>
+                        )}
                       </div>
                       
                       {/* Clue subtitle (only for longer clues) */}
@@ -143,6 +150,45 @@ export default function RoundSummary() {
                 </div>
               </div>
             )}
+          </div>
+        </div>
+
+        {/* Team Performance Breakdown */}
+        <div className="bg-black border border-yellow-500 rounded-md p-6 shadow-lg shadow-yellow-500/30">
+          <h3 className="text-2xl font-bold text-white mb-6 text-center tracking-wider">
+            {t('summary.teamPerformance')}
+          </h3>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {teams.map(team => {
+              const teamAnswers = round.answers.filter(answer => 
+                answer.foundBy?.teamId === team.id
+              );
+              const teamScore = teamAnswers.length;
+              
+              return (
+                <div key={team.id} className="bg-yellow-900/20 border border-yellow-600/50 rounded-lg p-4">
+                  <div className="flex items-center justify-between mb-3">
+                    <h4 className="text-lg font-bold text-yellow-400">{team.name}</h4>
+                    <div className="text-2xl font-bold text-yellow-300">{teamScore}</div>
+                  </div>
+                  
+                  {teamAnswers.length > 0 ? (
+                    <div className="space-y-1">
+                      {teamAnswers.map((answer, idx) => (
+                        <div key={idx} className="text-sm text-yellow-200 truncate">
+                          • {answer.text}
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="text-sm text-yellow-500 italic">
+                      {t('summary.noAnswersFound')}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
 

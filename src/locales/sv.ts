@@ -56,6 +56,8 @@ export const sv = {
     finalResults: "SLUTRESULTAT",
     finalStandings: "SLUTSTÄLLNING",
     currentScores: "NUVARANDE POÄNG",
+    teamPerformance: "LAGPRESTATIONER DENNA OMGÅNG",
+    noAnswersFound: "INGA SVAR HITTADES",
     winner: "VINNARE",
     gameOver: "SPELET ÄR SLUT",
     thanksForPlaying: "TACK FÖR ATT DU SPELADE!",

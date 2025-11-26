@@ -56,6 +56,8 @@ export const en = {
     finalResults: "FINAL RESULTS",
     finalStandings: "FINAL STANDINGS",
     currentScores: "CURRENT SCORES",
+    teamPerformance: "TEAM PERFORMANCE THIS ROUND",
+    noAnswersFound: "NO ANSWERS FOUND",
     winner: "WINNER",
     gameOver: "GAME OVER",
     thanksForPlaying: "THANKS FOR PLAYING!",

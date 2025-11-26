@@ -4,6 +4,10 @@ export interface Answer {
   clue?: string; // Custom placeholder text for unrevealed answers (replaces hardcoded numbers)
   additionalText?: string; // Optional additional information shown in parentheses
   revealed: boolean;
+  foundBy?: { // Track which team found this answer
+    teamId: string;
+    teamName: string;
+  };
 }
 
 export interface QuestionSet {
