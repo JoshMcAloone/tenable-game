@@ -90,21 +90,33 @@ export function reducer(state: GameState, action: Action): GameState {
       
       const round = state.rounds[state.currentRoundIndex];
       
-      // Create list of ALL answer positions (revealed and unrevealed) going from bottom to top
-      const allAnswerPositions = round.answers
+      // Create list of ONLY UNREVEALED answer positions going from bottom to top
+      const unrevealedPositions = round.answers
         .map((answer, index) => ({ answer, index }))
+        .filter(({ answer }) => !answer.revealed)
         .reverse(); // Start from bottom
       
-      if (allAnswerPositions.length === 0) return state;
+      if (unrevealedPositions.length === 0) {
+        // No unrevealed answers left - immediate failure
+        return {
+          ...state,
+          animation: {
+            ...state.animation,
+            currentHighlightRow: null,
+            animationType: 'failure'
+          }
+        };
+      }
       
-      // Start highlighting the bottom-most row (revealed or unrevealed)
-      const firstRowIndex = allAnswerPositions[0].index;
+      // Start highlighting the bottom-most unrevealed row
+      const firstRowIndex = unrevealedPositions[0].index;
       return {
         ...state,
         animation: {
           ...state.animation,
           currentHighlightRow: firstRowIndex,
-          animationType: 'scanning'
+          animationType: 'scanning',
+          checkedUnrevealedAnswers: [] // Track which unrevealed answers we've checked
         }
       };
     }
@@ -117,8 +129,12 @@ export function reducer(state: GameState, action: Action): GameState {
       const currentRow = action.rowIndex;
       const currentAnswer = round.answers[currentRow];
       
+      // Track that we've checked this unrevealed answer
+      const checkedAnswers = state.animation.checkedUnrevealedAnswers || [];
+      const updatedCheckedAnswers = currentAnswer.revealed ? checkedAnswers : [...checkedAnswers, currentRow];
+      
       // Check if this row matches the submitted answer and is not already revealed
-      if (!currentAnswer.revealed && isAnswerAcceptable(submittedAnswer, currentAnswer.text)) {
+      if (!currentAnswer.revealed && isAnswerAcceptable(submittedAnswer, currentAnswer.text, 0.8, currentAnswer.alternativeText)) {
         // Found the new correct answer! Start success animation
         return {
           ...state,
@@ -131,16 +147,18 @@ export function reducer(state: GameState, action: Action): GameState {
         };
       }
       
-      // Get all answer positions from bottom to top for progression
-      const allAnswerPositions = round.answers
+      // Get only unrevealed answer positions from bottom to top for progression
+      const unrevealedPositions = round.answers
         .map((answer, index) => ({ answer, index }))
+        .filter(({ answer }) => !answer.revealed)
         .reverse();
-        
-      const currentRowPosition = allAnswerPositions.findIndex(({ index }) => index === currentRow);
-      const isLastRow = currentRowPosition === allAnswerPositions.length - 1;
       
-      if (isLastRow) {
-        // Reached the top without finding a match - trigger failure
+      // Check if we've now checked all unrevealed answers
+      const totalUnrevealedCount = unrevealedPositions.length;
+      const uniqueCheckedAnswers = [...new Set(updatedCheckedAnswers)];
+      
+      if (uniqueCheckedAnswers.length >= totalUnrevealedCount) {
+        // We've checked all unrevealed answers without finding a match - trigger failure
         return {
           ...state,
           animation: {
@@ -151,13 +169,29 @@ export function reducer(state: GameState, action: Action): GameState {
         };
       }
       
-      // Move to next row (going up the pyramid through all positions)
-      const nextRowIndex = allAnswerPositions[currentRowPosition + 1]?.index;
+      // Find the next unrevealed answer to check
+      const currentRowPosition = unrevealedPositions.findIndex(({ index }) => index === currentRow);
+      const nextRowIndex = unrevealedPositions[currentRowPosition + 1]?.index;
+      
+      if (nextRowIndex === undefined) {
+        // No more unrevealed answers to check - trigger failure
+        return {
+          ...state,
+          animation: {
+            ...state.animation,
+            currentHighlightRow: null,
+            animationType: 'failure'
+          }
+        };
+      }
+      
+      // Move to next unrevealed answer
       return {
         ...state,
         animation: {
           ...state.animation,
-          currentHighlightRow: nextRowIndex
+          currentHighlightRow: nextRowIndex,
+          checkedUnrevealedAnswers: updatedCheckedAnswers
         }
       };
     }

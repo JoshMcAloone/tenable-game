@@ -36,6 +36,28 @@ Progressive pitch scanning creates dramatic tension:
 - **Harmonic Layers**: Root note + perfect fifth (1.5x frequency) for richness
 - **Volume Scaling**: Progressive increase up to 30% for building intensity
 
+### Critical State Audio-Visual System
+When teams reach critical state (1 life remaining), the game activates an immersive heartbeat effect:
+
+#### Components
+- **Sound**: Realistic "lub-dub" heartbeat pattern using Web Audio API with triangle waves and sub-bass
+- **Visual**: Synchronized shake animations on team panels with red glow effects
+- **Timing**: 2-second cycle with precise synchronization (lub at 15ms, dub at 175ms)
+
+#### Implementation
+- `src/utils/soundEffects.ts`: `playHeartbeat()` method with reverb and filtering
+- `src/styles/team-panel.css`: `criticalShake` keyframes animation
+- `src/hooks/useProgressiveReveal.ts`: Heartbeat interval management
+- `src/components/TeamPanel.tsx`: Critical state detection and CSS class application
+
+#### Features
+- **Audio Timing**: Slightly precedes visual for natural perception
+- **Synchronized Pause/Resume**: Both audio and visual effects pause during animations  
+- **Zero Drift**: Perfect synchronization maintained across pause/resume cycles
+- **Reverb Processing**: Subtle spatial audio using convolver nodes
+- **Volume Control**: Balanced for tension without overwhelming other sounds
+- **Performance**: Efficient cleanup and memory management
+
 ### Matching Features
 - **Levenshtein Distance**: Calculates character-level edit distance for typo detection
 - **Text Normalization**: Removes articles, punctuation, normalizes whitespace/case

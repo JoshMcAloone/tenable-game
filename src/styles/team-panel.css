@@ -8,10 +8,88 @@
   background-color: black;
 }
 
+/* Critical life state - red glow and shake */
+.team-panel--critical {
+  border-color: #ef4444; /* red-500 */
+  box-shadow: 
+    inset 0 0 10px rgba(239, 68, 68, 0.4),
+    0 0 8px rgba(239, 68, 68, 0.6),
+    0 0 16px rgba(239, 68, 68, 0.3);
+  animation: criticalShake 2s infinite;
+}
+
+/* Fuzzy shake synchronized with heartbeat - trembles only during beats */
+@keyframes criticalShake {
+  /* Start still */
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  
+  /* First heartbeat "lub" - fuzzy shake at 1% (20ms) */
+  0.5% {
+    transform: translate3d(-1.2px, 0.9px, 0);
+  }
+  1% {
+    transform: translate3d(1.4px, -0.7px, 0);
+  }
+  1.5% {
+    transform: translate3d(-1px, 1.3px, 0);
+  }
+  2% {
+    transform: translate3d(1.1px, -1.2px, 0);
+  }
+  2.5% {
+    transform: translate3d(-1.3px, 0.8px, 0);
+  }
+  3% {
+    transform: translate3d(0, 0, 0);
+  }
+  
+  /* Stay still between beats */
+  4%, 8% {
+    transform: translate3d(0, 0, 0);
+  }
+  
+  /* Second heartbeat "dub" - fuzzy shake at 9% (180ms) */
+  8.5% {
+    transform: translate3d(1.2px, -1px, 0);
+  }
+  9% {
+    transform: translate3d(-1.4px, 0.9px, 0);
+  }
+  9.5% {
+    transform: translate3d(0.9px, -1.3px, 0);
+  }
+  10% {
+    transform: translate3d(-1.1px, 1.2px, 0);
+  }
+  10.5% {
+    transform: translate3d(1.3px, -0.8px, 0);
+  }
+  11% {
+    transform: translate3d(0, 0, 0);
+  }
+  
+  /* Stay still until next cycle */
+  12%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
 .team-panel--active {
   border-color: #39ff14; /* green-400 */
   box-shadow: 0 10px 15px -3px rgba(57, 255, 20, 0.3);
   filter: drop-shadow(0 0 10px rgba(57, 255, 20, 0.6));
+}
+
+/* Critical state overrides active state */
+.team-panel--critical.team-panel--active {
+  border-color: #ef4444; /* red-500 */
+  box-shadow: 
+    inset 0 0 12px rgba(239, 68, 68, 0.5),
+    0 0 10px rgba(239, 68, 68, 0.7),
+    0 0 20px rgba(239, 68, 68, 0.4);
+  filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.6));
 }
 
 .team-panel--inactive {
@@ -57,6 +135,11 @@
 
 .team-panel--active .team-panel__name {
   color: #39ff14; /* green-400 */
+}
+
+.team-panel--critical .team-panel__name {
+  color: #ef4444; /* red-500 */
+  text-shadow: 0 0 4px rgba(239, 68, 68, 0.6);
 }
 
 .team-panel__badge {
@@ -110,6 +193,174 @@
   color: #f87171; /* red-400 */
   filter: drop-shadow(0 0 3px rgba(248, 113, 113, 0.8));
 }
+
+/* Heartbeat animation for teams with multiple lives */
+.team-panel__heart--heartbeat {
+  animation: heartbeat 2s ease-in-out infinite;
+  transform-origin: center;
+}
+
+/* ECG Waveform with integrated heart animation */
+.team-panel__ecg-waveform {
+  width: 70px;
+  height: 20px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+/* ECG baseline */
+.team-panel__ecg-baseline {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(239, 68, 68, 0.4);
+  transform: translateY(-50%);
+}
+
+/* Heart that travels along ECG line */
+.team-panel__ecg-heart {
+  position: absolute;
+  top: 50%;
+  left: -15px;
+  font-size: 0.75rem;
+  color: #f87171;
+  filter: drop-shadow(0 0 4px rgba(248, 113, 113, 0.8));
+  transform: translateY(-50%);
+  animation: heartEcgTravel 2s linear infinite; /* Match heartbeat interval exactly */
+  z-index: 2;
+}
+
+/* ECG pulse trail that follows the heart */
+.team-panel__ecg-trail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* The ECG spike pattern that appears behind the heart */
+.team-panel__ecg-trail::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 30px;
+  height: 100%;
+  background: #ef4444;
+  transform: translateY(-50%);
+  clip-path: polygon(
+    0% 50%,
+    15% 50%,
+    20% 45%,
+    25% 50%,
+    30% 35%,
+    35% 15%,
+    40% 85%,
+    45% 45%,
+    50% 50%,
+    55% 40%,
+    60% 55%,
+    65% 50%,
+    100% 50%
+  );
+  animation: ecgTrailFollow 2s linear infinite; /* Match heartbeat timing */
+  box-shadow: 0 0 3px rgba(239, 68, 68, 0.6);
+}
+
+/* Animation for heart traveling along ECG line - synced with audio */
+@keyframes heartEcgTravel {
+  0% {
+    transform: translateY(-50%) translateX(0px) scale(1);
+    filter: drop-shadow(0 0 4px rgba(248, 113, 113, 0.8));
+  }
+  1% { /* First beat timing - matches audio at 20ms (0.02s) */
+    transform: translateY(-50%) translateX(15px) scale(1.3);
+    filter: drop-shadow(0 0 10px rgba(248, 113, 113, 1)) drop-shadow(0 0 14px rgba(239, 68, 68, 0.8));
+  }
+  9% { /* Second beat timing - matches audio at 180ms (0.18s) */
+    transform: translateY(-50%) translateX(30px) scale(1.5);
+    filter: drop-shadow(0 0 15px rgba(248, 113, 113, 1)) drop-shadow(0 0 20px rgba(239, 68, 68, 0.9));
+  }
+  18% {
+    transform: translateY(-50%) translateX(45px) scale(1.1);
+    filter: drop-shadow(0 0 6px rgba(248, 113, 113, 0.9));
+  }
+  35% {
+    transform: translateY(-50%) translateX(60px) scale(1);
+    filter: drop-shadow(0 0 4px rgba(248, 113, 113, 0.8));
+  }
+  100% {
+    transform: translateY(-50%) translateX(85px) scale(0.8);
+    filter: drop-shadow(0 0 2px rgba(248, 113, 113, 0.4));
+  }
+}
+
+/* Animation for ECG trail following the heart - synced timing */
+@keyframes ecgTrailFollow {
+  0% {
+    transform: translateY(-50%) translateX(-30px);
+    opacity: 0;
+  }
+  9% { /* Sync with first beat */
+    opacity: 1;
+    transform: translateY(-50%) translateX(-10px);
+  }
+  18% { /* Sync with second beat */
+    transform: translateY(-50%) translateX(10px);
+    opacity: 1;
+  }
+  45% {
+    transform: translateY(-50%) translateX(30px);
+    opacity: 0.8;
+  }
+  70% {
+    transform: translateY(-50%) translateX(50px);
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(-50%) translateX(65px);
+    opacity: 0;
+  }
+}
+
+
+
+@keyframes heartbeat {
+  0% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 3px rgba(248, 113, 113, 0.8));
+  }
+  10% {
+    transform: scale(1.15);
+    filter: drop-shadow(0 0 6px rgba(248, 113, 113, 1));
+  }
+  20% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 3px rgba(248, 113, 113, 0.8));
+  }
+  30% {
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 8px rgba(248, 113, 113, 1));
+  }
+  40% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 3px rgba(248, 113, 113, 0.8));
+  }
+  100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 3px rgba(248, 113, 113, 0.8));
+  }
+}
+
+
 
 .team-panel__heart--inactive {
   color: rgba(127, 29, 29, 0.3); /* red-900/30 */

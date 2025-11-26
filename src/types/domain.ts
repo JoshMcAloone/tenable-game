@@ -1,5 +1,8 @@
 export interface Answer {
   text: string;
+  alternativeText?: string; // Optional alternative answer text for fuzzy matching
+  clue?: string; // Custom placeholder text for unrevealed answers (replaces hardcoded numbers)
+  additionalText?: string; // Optional additional information shown in parentheses
   revealed: boolean;
 }
 
@@ -32,6 +35,7 @@ export interface GameState {
     submittedAnswer: string;
     animationType: 'scanning' | 'success' | 'failure' | null;
     foundAnswerIndex?: number; // Track which answer was found during scanning
+    checkedUnrevealedAnswers?: number[]; // Track which unrevealed answer indices have been checked
   };
   // Celebration state for pyramid completion
   celebration?: {

@@ -120,8 +120,22 @@ export function fuzzyMatchAnswer(userAnswer: string, correctAnswer: string): num
 /**
  * Check if answer should be accepted based on fuzzy matching
  * Returns true if the answer is close enough to be considered correct
+ * Checks both primary text and alternativeText (if provided)
  */
-export function isAnswerAcceptable(userAnswer: string, correctAnswer: string, threshold: number = 0.8): boolean {
-  const score = fuzzyMatchAnswer(userAnswer, correctAnswer);
-  return score >= threshold;
+export function isAnswerAcceptable(userAnswer: string, correctAnswer: string, threshold: number = 0.8, alternativeText?: string): boolean {
+  // Check primary text first
+  const primaryScore = fuzzyMatchAnswer(userAnswer, correctAnswer);
+  if (primaryScore >= threshold) {
+    return true;
+  }
+  
+  // Check alternative text if provided
+  if (alternativeText) {
+    const alternativeScore = fuzzyMatchAnswer(userAnswer, alternativeText);
+    if (alternativeScore >= threshold) {
+      return true;
+    }
+  }
+  
+  return false;
 }

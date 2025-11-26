@@ -76,7 +76,12 @@ export default function RoundSummary() {
                         <span className="text-green-800 font-bold">✓</span>
                       </div>
                       <div className="text-lg font-bold break-words leading-tight">
-                        {answer.text}
+                        <span>{answer.text}</span>
+                        {answer.additionalText && (
+                          <span className="text-yellow-300 font-bold ml-2 text-base">
+                            ({answer.additionalText})
+                          </span>
+                        )}
                       </div>
                     </div>
                   )
@@ -105,7 +110,12 @@ export default function RoundSummary() {
                           <span className="text-red-200 font-bold">✗</span>
                         </div>
                         <div className="text-lg font-bold break-words leading-tight">
-                          {answer.text}
+                          <span>{answer.text}</span>
+                          {answer.additionalText && (
+                            <span className="text-red-200 font-bold ml-2 text-base">
+                              ({answer.additionalText})
+                            </span>
+                          )}
                         </div>
                       </div>
                     )

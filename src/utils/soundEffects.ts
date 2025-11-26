@@ -1,10 +1,14 @@
 // Simple sound effects using Web Audio API
 class SoundEffects {
   private audioContext: AudioContext | null = null;
+  private isPreloaded: boolean = false;
+  private isEnabled: boolean = true;
 
   constructor() {
     // Initialize audio context on first interaction
     this.initAudioContext();
+    // Preload audio context on user interaction
+    this.preloadOnInteraction();
   }
 
   private initAudioContext() {
@@ -12,43 +16,111 @@ class SoundEffects {
       try {
         this.audioContext = new AudioContext();
       } catch (e) {
-        // Web Audio API not supported
+        console.warn('Web Audio API not supported, sound effects disabled');
+        this.isEnabled = false;
       }
+    } else {
+      this.isEnabled = false;
     }
+  }
+
+
+
+  private preloadOnInteraction() {
+    const preload = () => {
+      if (!this.isPreloaded && this.audioContext) {
+        this.ensureAudioContext().catch(() => {
+          this.isEnabled = false;
+        });
+        this.isPreloaded = true;
+        // Remove listeners after first interaction
+        document.removeEventListener('click', preload);
+        document.removeEventListener('keydown', preload);
+        document.removeEventListener('touchstart', preload);
+      }
+    };
+    
+    // Listen for first user interaction to preload audio
+    document.addEventListener('click', preload, { once: true });
+    document.addEventListener('keydown', preload, { once: true });
+    document.addEventListener('touchstart', preload, { once: true });
   }
 
   private async ensureAudioContext() {
-    if (!this.audioContext) {
-      this.initAudioContext();
-    }
+    if (!this.isEnabled || !this.audioContext) return false;
     
-    if (this.audioContext && this.audioContext.state === 'suspended') {
-      await this.audioContext.resume();
+    try {
+      if (this.audioContext.state === 'suspended') {
+        await this.audioContext.resume();
+      }
+      return this.audioContext.state === 'running';
+    } catch (e) {
+      console.warn('Failed to resume audio context:', e);
+      this.isEnabled = false;
+      return false;
     }
   }
 
+  private createReverbImpulse(duration: number, decay: number): AudioBuffer {
+    if (!this.audioContext) {
+      throw new Error('Audio context not available');
+    }
+
+    const sampleRate = this.audioContext.sampleRate;
+    const length = sampleRate * duration;
+    const impulse = this.audioContext.createBuffer(2, length, sampleRate);
+    
+    for (let channel = 0; channel < 2; channel++) {
+      const channelData = impulse.getChannelData(channel);
+      for (let i = 0; i < length; i++) {
+        // Create exponential decay with random noise
+        const t = i / length;
+        const envelope = Math.pow(1 - t, decay * 3);
+        channelData[i] = (Math.random() * 2 - 1) * envelope * 0.3;
+      }
+    }
+    
+    return impulse;
+  }
+
   private async playTone(frequency: number, duration: number, type: OscillatorType = 'sine') {
-    await this.ensureAudioContext();
-    if (!this.audioContext) return;
+    if (!this.isEnabled) return;
+    
+    const contextReady = await this.ensureAudioContext();
+    if (!contextReady || !this.audioContext) return;
 
-    const oscillator = this.audioContext.createOscillator();
-    const gainNode = this.audioContext.createGain();
+    try {
+      const oscillator = this.audioContext.createOscillator();
+      const gainNode = this.audioContext.createGain();
 
-    oscillator.connect(gainNode);
-    gainNode.connect(this.audioContext.destination);
+      oscillator.connect(gainNode);
+      gainNode.connect(this.audioContext.destination);
 
-    oscillator.frequency.setValueAtTime(frequency, this.audioContext.currentTime);
-    oscillator.type = type;
+      oscillator.frequency.setValueAtTime(frequency, this.audioContext.currentTime);
+      oscillator.type = type;
 
-    gainNode.gain.setValueAtTime(0.1, this.audioContext.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + duration);
+      gainNode.gain.setValueAtTime(0.1, this.audioContext.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + duration);
 
-    oscillator.start(this.audioContext.currentTime);
-    oscillator.stop(this.audioContext.currentTime + duration);
+      oscillator.start(this.audioContext.currentTime);
+      oscillator.stop(this.audioContext.currentTime + duration);
+      
+      // Clean up oscillator after it's done
+      oscillator.addEventListener('ended', () => {
+        oscillator.disconnect();
+        gainNode.disconnect();
+      });
+    } catch (e) {
+      console.warn('Failed to play tone:', e);
+      // Disable sound effects if they're causing issues
+      this.isEnabled = false;
+    }
   }
 
   // Sound for each row being highlighted with progressive pitch increase
   async playRowHighlight(step: number = 0, totalSteps: number = 10) {
+    if (!this.isEnabled) return;
+    
     // Calculate ascending pitch progression - starts at 600Hz, rises to 1200Hz
     const baseFrequency = 600;
     const maxFrequency = 1200;
@@ -61,32 +133,56 @@ class SoundEffects {
     const frequencyRange = maxFrequency - baseFrequency;
     const currentFreq = baseFrequency + (progressRatio * frequencyRange);
     
-    await this.ensureAudioContext();
-    if (!this.audioContext) return;
+    const contextReady = await this.ensureAudioContext();
+    if (!contextReady || !this.audioContext) return;
 
-    // Create a more complex sound with harmonics that also rise in pitch
-    const frequencies = [currentFreq, currentFreq * 1.5]; // Root note and fifth
-    frequencies.forEach((freq, index) => {
-      const oscillator = this.audioContext!.createOscillator();
-      const gainNode = this.audioContext!.createGain();
-
-      oscillator.connect(gainNode);
-      gainNode.connect(this.audioContext!.destination);
-
-      oscillator.frequency.setValueAtTime(freq, this.audioContext!.currentTime);
-      oscillator.type = index === 0 ? 'square' : 'sine';
-
-      // Slightly increase volume as pitch gets higher for more tension
-      const baseVolume = index === 0 ? 0.15 : 0.08;
-      const volumeMultiplier = 1 + (progressRatio * 0.3); // Up to 30% louder at the end
-      const volume = baseVolume * volumeMultiplier;
+    try {
+      // Create a more complex sound with harmonics that also rise in pitch
+      const frequencies = [currentFreq, currentFreq * 1.5]; // Root note and fifth
+      const oscillators: OscillatorNode[] = [];
+      const gainNodes: GainNode[] = [];
       
-      gainNode.gain.setValueAtTime(volume, this.audioContext!.currentTime);
-      gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext!.currentTime + 0.25);
+      frequencies.forEach((freq, index) => {
+        const oscillator = this.audioContext!.createOscillator();
+        const gainNode = this.audioContext!.createGain();
+        
+        oscillators.push(oscillator);
+        gainNodes.push(gainNode);
 
-      oscillator.start(this.audioContext!.currentTime);
-      oscillator.stop(this.audioContext!.currentTime + 0.25);
-    });
+        oscillator.connect(gainNode);
+        gainNode.connect(this.audioContext!.destination);
+
+        oscillator.frequency.setValueAtTime(freq, this.audioContext!.currentTime);
+        oscillator.type = index === 0 ? 'square' : 'sine';
+
+        // Slightly increase volume as pitch gets higher for more tension
+        const baseVolume = index === 0 ? 0.15 : 0.08;
+        const volumeMultiplier = 1 + (progressRatio * 0.3); // Up to 30% louder at the end
+        const volume = baseVolume * volumeMultiplier;
+        
+        gainNode.gain.setValueAtTime(volume, this.audioContext!.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext!.currentTime + 0.25);
+
+        oscillator.start(this.audioContext!.currentTime);
+        oscillator.stop(this.audioContext!.currentTime + 0.25);
+      });
+      
+      // Clean up after sound finishes
+      setTimeout(() => {
+        oscillators.forEach((osc, i) => {
+          try {
+            osc.disconnect();
+            gainNodes[i].disconnect();
+          } catch (e) {
+            // Ignore cleanup errors
+          }
+        });
+      }, 300);
+      
+    } catch (e) {
+      console.warn('Failed to play row highlight sound:', e);
+      this.isEnabled = false;
+    }
   }
 
   // Sound for successful answer
@@ -290,6 +386,125 @@ class SoundEffects {
         chimeOsc.stop(this.audioContext!.currentTime + 0.8);
       }, delay * 1000);
     });
+  }
+
+  // Public method to enable/disable sound effects
+  setEnabled(enabled: boolean) {
+    this.isEnabled = enabled;
+  }
+
+  // Public method to check if sound effects are enabled
+  getEnabled(): boolean {
+    return this.isEnabled;
+  }
+
+  // Realistic heartbeat sound effect for high tension
+  async playHeartbeat() {
+    if (!this.isEnabled) return;
+    
+    try {
+      const contextReady = await this.ensureAudioContext();
+      if (!contextReady || !this.audioContext) return;
+
+      const now = this.audioContext.currentTime;
+
+      // Create a subtle but unsettling heartbeat with minimal reverb
+      const createHeartBeat = (startTime: number, frequency: number, duration: number, volume: number) => {
+        // Single oscillator for clean heart sound
+        const heartOsc = this.audioContext!.createOscillator();
+        
+        // Very subtle sub-bass for body resonance
+        const subOsc = this.audioContext!.createOscillator();
+        
+        // Gain nodes
+        const heartGain = this.audioContext!.createGain();
+        const subGain = this.audioContext!.createGain();
+        
+        // Gentle filter for organic sound
+        const filter = this.audioContext!.createBiquadFilter();
+        
+        // Very subtle reverb
+        const convolver = this.audioContext!.createConvolver();
+        const wetGain = this.audioContext!.createGain();
+        const dryGain = this.audioContext!.createGain();
+        const masterGain = this.audioContext!.createGain();
+        
+        // Short, gentle reverb impulse
+        const impulseResponse = this.createReverbImpulse(1.2, 1.0); // Much shorter reverb
+        convolver.buffer = impulseResponse;
+        
+        // Configure heart oscillator - triangle wave for organic feel
+        heartOsc.type = 'triangle';
+        heartOsc.frequency.setValueAtTime(frequency, startTime);
+        
+        // Very quiet sub-bass for chest resonance
+        subOsc.type = 'sine';
+        subOsc.frequency.setValueAtTime(frequency * 0.4, startTime);
+        
+        // Gentle lowpass filter
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(frequency * 3, startTime);
+        filter.Q.setValueAtTime(1.5, startTime); // Gentle resonance
+        
+        // Connect audio graph simply
+        heartOsc.connect(filter);
+        filter.connect(heartGain);
+        
+        subOsc.connect(subGain);
+        
+        // Very minimal reverb
+        heartGain.connect(convolver);
+        convolver.connect(wetGain);
+        heartGain.connect(dryGain);
+        
+        // Mix
+        wetGain.connect(masterGain);
+        dryGain.connect(masterGain);
+        subGain.connect(masterGain);
+        masterGain.connect(this.audioContext!.destination);
+        
+        // Subtle mix - mostly dry with hint of space
+        wetGain.gain.setValueAtTime(0.15, startTime); // Very little reverb
+        dryGain.gain.setValueAtTime(0.85, startTime); // Mostly dry
+        
+        // Realistic heart envelope - quick thump with gentle decay
+        heartGain.gain.setValueAtTime(0, startTime);
+        heartGain.gain.linearRampToValueAtTime(volume, startTime + 0.005); // Very quick attack
+        heartGain.gain.exponentialRampToValueAtTime(volume * 0.2, startTime + duration * 0.3);
+        heartGain.gain.exponentialRampToValueAtTime(0.001, startTime + duration);
+        
+        // Sub-bass with longer, gentle decay for chest feeling
+        subGain.gain.setValueAtTime(0, startTime);
+        subGain.gain.linearRampToValueAtTime(volume * 0.5, startTime + 0.01);
+        subGain.gain.exponentialRampToValueAtTime(volume * 0.1, startTime + duration * 0.6);
+        subGain.gain.exponentialRampToValueAtTime(0.001, startTime + duration * 1.2);
+        
+        // Master volume - louder for better audibility
+        masterGain.gain.setValueAtTime(1.8, startTime);
+        
+        // Start oscillators
+        heartOsc.start(startTime);
+        subOsc.start(startTime);
+        
+        // Stop after decay
+        heartOsc.stop(startTime + duration);
+        subOsc.stop(startTime + duration * 1.2);
+      };
+
+      // Realistic heartbeat timing - precisely synchronized with CSS animation
+      // CSS animation: first shake at 1% of 2s = 20ms, second shake at 9% of 2s = 180ms
+      // Add small compensation for browser timing variations
+      
+      // "Lub" - first heart sound (S1) - slightly before visual for natural feel
+      createHeartBeat(now + 0.015, 45, 0.12, 1.0); // 15ms instead of 20ms
+      
+      // "Dub" - second heart sound (S2) - also slightly ahead
+      createHeartBeat(now + 0.175, 65, 0.08, 0.8); // 175ms instead of 180ms
+
+    } catch (e) {
+      console.warn('Failed to play atmospheric heartbeat:', e);
+      this.isEnabled = false;
+    }
   }
 }
 

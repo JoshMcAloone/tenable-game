@@ -20,34 +20,56 @@ export default function BoardView() {
   
   const round = rounds[currentRoundIndex];
 
-  // Component for individual answer with overflow detection
+  // Component for individual answer with smart additional text prioritization
   const AnswerWithTooltip = ({ answer, tierNumber }: { answer: any, tierNumber: number }) => {
     const [isOverflowing, setIsOverflowing] = useState(false);
-    const textRef = useRef<HTMLDivElement>(null);
+    const mainTextRef = useRef<HTMLSpanElement>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
     
     useEffect(() => {
-      if (textRef.current && answer.revealed) {
-        const element = textRef.current;
-        setIsOverflowing(element.scrollWidth > element.clientWidth);
+      if (mainTextRef.current && containerRef.current && answer.revealed) {
+        // Check if the main text is being truncated (has ellipsis)
+        const mainTextElement = mainTextRef.current;
+        const containerElement = containerRef.current;
+        
+        // If scrollWidth > clientWidth, then ellipsis is active
+        const mainTextOverflowing = mainTextElement.scrollWidth > mainTextElement.clientWidth;
+        
+        // Also check if the whole container is overflowing
+        const containerOverflowing = containerElement.scrollWidth > containerElement.clientWidth;
+        
+        setIsOverflowing(mainTextOverflowing || containerOverflowing);
       }
-    }, [answer.text, answer.revealed]);
+    }, [answer.text, answer.additionalText, answer.revealed]);
     
     if (!answer.revealed) {
-      return <div className="answer-slot-number">{tierNumber}</div>;
+      const clueText = answer.clue || tierNumber.toString();
+      return <div className="answer-slot-number">{clueText}</div>;
     }
     
     const content = (
-      <div className="answer-content answer-tooltip-trigger">
-        <div className="answer-text" ref={textRef}>
-          {answer.text}
+      <div className="answer-content answer-tooltip-trigger" ref={containerRef}>
+        <div className="answer-text">
+          <span className="main-answer-text" ref={mainTextRef}>{answer.text}</span>
+          {answer.additionalText && (
+            <span className="answer-additional-text"> ({answer.additionalText})</span>
+          )}
         </div>
       </div>
     );
     
     if (isOverflowing) {
+      const tooltipContent = (
+        <div className="tooltip-content">
+          <div>{answer.text}</div>
+          {answer.additionalText && (
+            <div className="tooltip-additional">({answer.additionalText})</div>
+          )}
+        </div>
+      );
       return (
         <Tippy 
-          content={answer.text}
+          content={tooltipContent}
           theme="neon"
           animation="fade"
           duration={200}
@@ -140,14 +162,17 @@ export default function BoardView() {
                     const totalAnswers = round.answers.length;
                     const progressRatio = tierNumber / totalAnswers;
                     
-                    // Smart width calculation: constrain top rows for ellipsis, give bottom rows full width
+                    // Optimized width calculation: maintain pyramid shape while maximizing readability
                     let widthPercent;
-                    if (tierNumber <= 3) {
-                      // Top 3 rows: small width to force ellipsis for long text
-                      widthPercent = 40 + (tierNumber - 1) * 10; // 40%, 50%, 60%
+                    if (tierNumber <= 2) {
+                      // Top 2 rows: more generous width while maintaining pyramid aesthetic
+                      widthPercent = 55 + (tierNumber - 1) * 8; // 55%, 63%
+                    } else if (tierNumber <= 4) {
+                      // Middle rows: gradual expansion
+                      widthPercent = 70 + (tierNumber - 3) * 5; // 70%, 75%
                     } else {
-                      // Bottom rows: generous width, no ellipsis needed
-                      widthPercent = 60 + ((tierNumber - 3) / (totalAnswers - 3)) * 30; // 60% to 90%
+                      // Bottom rows: full width utilization
+                      widthPercent = 78 + ((tierNumber - 5) / (totalAnswers - 5)) * 17; // 78% to 95%
                     }
                     
                     // Determine animation class for this tier
@@ -191,9 +216,14 @@ export default function BoardView() {
               <h3 className="font-bold text-green-400 text-center text-sm tracking-wider filter drop-shadow-[0_0_6px_rgba(57,255,20,0.8)]">{t('setup.teamNames')}</h3>
             </div>
             
-            <div className="flex-1 space-y-2 overflow-y-auto max-h-96">
+            <div className="flex-1 space-y-2 overflow-y-auto overflow-x-hidden max-h-96">
               {teams.map((team) => (
-                <TeamPanel key={team.id} team={team} active={team.id === currentTurnTeamId} />
+                <TeamPanel 
+                  key={team.id} 
+                  team={team} 
+                  active={team.id === currentTurnTeamId} 
+                  isAnimating={animation?.isAnimating}
+                />
               ))}
             </div>
             

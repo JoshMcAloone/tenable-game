@@ -5,13 +5,24 @@ import { useLanguage } from '../context/LanguageContext';
 interface Props {
   team: Team;
   active: boolean;
+  isAnimating?: boolean;
 }
 
-export default function TeamPanel({ team, active }: Props) {
+export default function TeamPanel({ team, active, isAnimating = false }: Props) {
   const { t } = useLanguage();
   
+  // Determine if team is in critical state (1 life remaining) AND heartbeat should be active
+  const isCritical = team.livesRemaining === 1 && !team.eliminated && !isAnimating;
+  
+  // Build CSS classes for team panel
+  const panelClasses = [
+    'team-panel',
+    team.eliminated ? 'team-panel--eliminated' : (active ? 'team-panel--active' : 'team-panel--inactive'),
+    isCritical ? 'team-panel--critical' : ''
+  ].filter(Boolean).join(' ');
+  
   return (
-    <div className={`team-panel ${team.eliminated ? 'team-panel--eliminated' : (active ? 'team-panel--active' : 'team-panel--inactive')}`}>
+    <div className={panelClasses}>
       {/* Active Team Neon Indicator */}
       {active && (
         <div className="team-panel__active-indicator" />
@@ -33,16 +44,36 @@ export default function TeamPanel({ team, active }: Props) {
             <div className="team-panel__stat-label">{t('team.score')}</div>
           </div>
           <div className="team-panel__stat">
-            <div className="team-panel__heart-container">
-              {Array.from({ length: 3 }, (_, i) => (
-                <span 
-                  key={i} 
-                  className={`team-panel__heart ${i < team.livesRemaining ? 'team-panel__heart--active' : 'team-panel__heart--inactive'}`}
-                >
+            {/* Show integrated heart-ECG waveform for critical state (1 life) OR normal hearts */}
+            {team.livesRemaining === 1 && !team.eliminated ? (
+              <div className="team-panel__ecg-waveform">
+                <div className="team-panel__ecg-baseline"></div>
+                <div className="team-panel__ecg-trail"></div>
+                <span className="team-panel__ecg-heart">
                   ❤
                 </span>
-              ))}
-            </div>
+              </div>
+            ) : (
+              <div className="team-panel__heart-container">
+                {Array.from({ length: 3 }, (_, i) => {
+                  const isActive = i < team.livesRemaining;
+                  const shouldHeartbeat = team.livesRemaining > 1 && isActive;
+                  
+                  return (
+                    <span 
+                      key={i} 
+                      className={`team-panel__heart ${
+                        isActive 
+                          ? `team-panel__heart--active ${shouldHeartbeat ? 'team-panel__heart--heartbeat' : ''}` 
+                          : 'team-panel__heart--inactive'
+                      }`}
+                    >
+                      ❤
+                    </span>
+                  );
+                })}
+              </div>
+            )}
             <div className="team-panel__stat-label">{t('team.lives')}</div>
           </div>
         </div>

@@ -30,18 +30,25 @@ A lightweight multi-team quiz game inspired by the Tenable TV format. Players (t
 ## 5. Input & Validation
 - Answer input: free-text; trim whitespace; normalize (lowercase) before comparison.
 - Reject empty submissions.
-- **Fuzzy Matching System**: Intelligent answer validation using similarity scoring:
+- **Enhanced Answer Acceptance System**: Flexible answer validation with multiple acceptance paths:
+  - **Primary Text**: Standard answer text that players must match
+  - **Alternative Text**: Optional alternative form of the answer that is also acceptable (e.g., "Harry" for "Harry Potter")
+  - **Custom Clues**: Each answer can have a custom clue text displayed for unrevealed answers instead of hardcoded numbers 1-10
+  - **Additional Information**: Optional extra text shown in parentheses next to revealed answers (e.g., years, scores, statistics)
+- **Fuzzy Matching System**: Intelligent answer validation using similarity scoring applied to both primary and alternative text:
   - **Article Handling**: Automatically removes common articles ("the", "a", "an") for comparison
   - **Typo Tolerance**: Uses Levenshtein distance algorithm to detect and accept common typos
   - **Case Insensitive**: All comparisons ignore case differences
   - **Punctuation Normalization**: Handles punctuation differences gracefully
   - **Similarity Threshold**: Configurable threshold (default 80%) determines acceptable matches
   - **Word Order Flexibility**: Handles some word rearrangements and partial matches
+  - **Dual Text Checking**: Answer is accepted if it fuzzy matches either the primary text OR the alternativeText
   - **Examples of Accepted Variations**:
     - "Winner Takes It All" matches "The Winner Takes It All" (missing article)
     - "Mama Mia" matches "Mamma Mia" (single character difference)
     - "winner takes it all" matches "The Winner Takes It All" (case insensitive)
     - "The Winner Take It All" matches "The Winner Takes It All" (typo tolerance)
+    - "Harry" matches answer with text "Harry Potter" and alternativeText "Harry"
 
 ## 6. Data Model (MVP)
 QuestionSet:
@@ -49,7 +56,10 @@ QuestionSet:
 - questionText
 - answers: array[Answer]
 Answer:
-- text
+- text (primary answer text)
+- alternativeText (optional - alternative accepted answer text for fuzzy matching)
+- clue (custom placeholder text shown for unrevealed answers - replaces hardcoded numbers)
+- additionalText (optional - extra information shown in parentheses next to revealed answers, e.g., years, scores)
 - revealed (bool)
 Team:
 - id
@@ -85,9 +95,10 @@ GameState:
 ## 10. User Interface (High-Level)
 Views:
 - Question View: Large question text + "Begin Round" control.
-- Board View: Grid of 10 numbered slots; revealed answers replace numbers; sidebar with team panels.
+- Board View: Grid of answer slots with custom clues; revealed answers show primary text with optional additional text in parentheses; sidebar with team panels.
 - Answers Reveal: Visual effect (simple highlight) on correct answer.
 Elements:
+- Answer Slots: Display custom clue text (instead of numbers) for unrevealed answers; primary answer text with optional additional info for revealed answers.
 - Team Panel: name, score, lives (hearts or counters), highlight for active turn.
 - Input Box: answer submission + submit button; disabled if team not active.
 - Status Bar: remaining hidden answers count.
