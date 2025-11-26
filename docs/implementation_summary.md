@@ -65,9 +65,11 @@ Successfully implemented new functionality for the Tenable quiz game to support:
 **After**: Unrevealed answers show custom clue text like "En av The Beatles", "Vampyr i en bokfilmserie"
 
 ### Alternative Text Support
-Players can now answer with either the primary text or alternative text:
-- Answer: `{ text: "Harry Potter", alternativeText: "Harry" }`
-- Accepted inputs: "Harry Potter", "Harry", "HARRY", "harry potter", etc.
+Players can now answer with either the primary text or any of multiple alternative texts:
+- Answer: `{ text: "Harry Potter", alternativeText: "Harry,Potter,Harry James Potter" }`
+- Accepted inputs: "Harry Potter", "Harry", "Potter", "Harry James Potter", "HARRY", "potter", etc.
+- **Multiple Options**: Comma-separated alternatives allow comprehensive answer coverage
+- **Flexible Matching**: Each alternative is processed independently with full fuzzy matching
 
 ### Additional Information Display
 Revealed answers now show optional extra information:
@@ -144,7 +146,7 @@ See `docs/requirements_v1.md` for updated game rules and acceptance criteria.
 {
   "clue": "1",
   "text": "Harry Potter",
-  "alternativeText": "Harry", 
+  "alternativeText": "Harry,Potter,Harry James Potter", 
   "additionalText": "18 956"
 }
 ```
@@ -154,7 +156,7 @@ See `docs/requirements_v1.md` for updated game rules and acceptance criteria.
 {
   "clue": "Natasha Romanoff i Marvel-filmerna",
   "text": "Scarlett Johansson",
-  "alternativeText": "Johansson",
+  "alternativeText": "Johansson,Scarlett,Black Widow",
   "additionalText": ""
 }
 ```
