@@ -2,15 +2,15 @@
 .pyramid-container {
   position: relative;
   width: 100%;
-  max-width: 72rem; /* Much wider - now max-w-6xl (72rem) for excellent space utilization */
+  max-width: 85rem;
 }
 
 .pyramid-main {
   position: relative;
-  background-color: #581c87; /* purple-900 */
-  border: 2px solid #39ff14; /* green-400 */
+  background-color: #581c87;
+  border: 2px solid #39ff14;
   box-shadow: 0 10px 15px -3px rgba(57, 255, 20, 0.3);
-  clip-path: polygon(50% 0%, 8% 100%, 92% 100%); /* Slightly wider base for better text accommodation */
+  clip-path: polygon(50% 1%, 4% 99%, 96% 99%);
   background-image: repeating-linear-gradient(
     45deg, 
     transparent, 
@@ -25,10 +25,10 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 4.5rem; /* Decreased from 5.5rem to 4.5rem for slightly smaller top triangle */
-  background-color: #39ff14; /* green-400 */
+  height: 6rem;
+  background-color: #39ff14;
   filter: drop-shadow(0 0 8px rgba(57, 255, 20, 0.8));
-  clip-path: polygon(50% 0%, 8% 100%, 92% 100%);
+  clip-path: polygon(50% 1%, 4% 99%, 96% 99%);
 }
 
 .pyramid-bottom-block {
@@ -36,27 +36,27 @@
   bottom: 0;
   left: 0;
   right: 0;
-  height: 0.5rem; /* Decreased from 1rem to 0.5rem for very thin bottom */
-  background-color: #39ff14; /* green-400 */
+  height: 0.5rem;
+  background-color: #39ff14;
   filter: drop-shadow(0 0 8px rgba(57, 255, 20, 0.8));
 }
 
 .pyramid-answers-container {
   position: relative;
   z-index: 10;
-  padding-top: 5rem; /* Decreased from 6rem to 5rem to match smaller top triangle */
-  padding-bottom: 1rem; /* Decreased from 1.5rem to 1rem to maximize space for rows */
-  padding-left: 1.5rem; /* Increased from 1rem to 1.5rem for more side padding */
-  padding-right: 1.5rem;
+  padding-top: 6.5rem;
+  padding-bottom: 0.75rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
   display: flex;
   flex-direction: column;
-  gap: 0; /* Removed gap (was 0.375rem) to eliminate space between rows */
+  gap: 0;
 }
 
 .answer-tier {
   margin: 0 auto;
   transition: all 0.5s;
-  height: 2.75rem; /* Increased from 2.5rem to 2.75rem for even more vertical space */
+  height: 2.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -68,28 +68,28 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 0.125rem; /* rounded-sm */
+  border-radius: 0.375rem;
   font-weight: bold;
-  font-size: 0.75rem; /* text-xs */
-  letter-spacing: 0.1em; /* tracking-wider */
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
   transition: all 0.5s;
-  /* Ensure proper overflow handling */
   overflow: hidden;
   position: relative;
+  padding: 0.25rem 0.75rem;
 }
 
 .answer-slot--unrevealed {
-  background-color: #6b21a8; /* purple-800 */
+  background-color: #6b21a8;
   color: white;
-  border: 1px solid #8b5cf6; /* purple-600 */
+  border: 1px solid #8b5cf6;
   box-shadow: 0 10px 15px -3px rgba(139, 69, 191, 0.3);
   filter: drop-shadow(0 0 6px rgba(139, 69, 191, 0.6));
 }
 
 .answer-slot--revealed {
-  background-color: #39ff14; /* green-400 */
+  background-color: #39ff14;
   color: white;
-  border: 1px solid #22c55e; /* green-300 */
+  border: 1px solid #22c55e;
   box-shadow: 0 10px 15px -3px rgba(57, 255, 20, 0.5);
   filter: drop-shadow(0 0 12px rgba(57, 255, 20, 0.8));
   animation: pulse 2s infinite;
@@ -101,10 +101,10 @@
   justify-content: center;
   width: 100%;
   height: 100%;
-  padding: 0 20px; /* Increased to 20px for more generous spacing */
+  padding: 0 12px;
   box-sizing: border-box;
   max-width: 100%;
-  overflow: visible; /* Changed from hidden to visible to prevent cutoff */
+  overflow: hidden;
   text-align: center;
 }
 
@@ -114,13 +114,11 @@
   cursor: pointer;
 }
 
-/* Enhanced text layout with additional text prioritization */
 .answer-text {
-  font-size: 0.875rem; /* Increased from 0.75rem to 0.875rem (text-sm) */
+  font-size: 0.875rem;
   font-weight: 800;
   text-align: center;
   color: inherit;
-  /* Reduced text shadow to prevent cutoff */
   text-shadow: 
     -0.75px -0.75px 0 #000,
     0.75px -0.75px 0 #000,
@@ -130,34 +128,28 @@
     0 0.75px 0 #000,
     -0.75px 0 0 #000,
     0.75px 0 0 #000;
-  /* Layout for smart text prioritization */
-  overflow: visible; /* Prevent text cutoff */
-  white-space: nowrap;
-  width: 100%;
-  line-height: 1.2;
   display: flex;
   align-items: center;
   justify-content: center;
-  /* Internal padding for text safety */
-  padding: 2px 4px;
+  width: 100%;
+  line-height: 1.2;
+  white-space: nowrap;
 }
 
-/* Main answer text that can be truncated to prioritize additional text */
 .main-answer-text {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  flex-shrink: 1;
-  min-width: 0;
-  padding: 0 2px;
+  max-width: calc(100% - 80px);
+  text-align: center;
+  display: inline-block;
 }
 
 .answer-additional-text {
-  font-size: 0.875rem; /* Same size as main text */
-  font-weight: 800; /* Bold for visibility */
-  color: #fbbf24; /* Bright amber-yellow for excellent contrast */
+  font-size: 0.875rem;
+  font-weight: 800;
+  color: #fbbf24;
   font-style: normal;
-  /* Reduced text shadow for crisp visibility without cutoff */
   text-shadow: 
     -1px -1px 0 #000,
     1px -1px 0 #000,
@@ -167,20 +159,14 @@
     0 1px 0 #000,
     -1px 0 0 #000,
     1px 0 0 #000,
-    /* Add outer glow for extra visibility */
     0 0 2px #000,
     0 0 4px #000;
-  margin-left: 0.4rem; /* Clean spacing from main text */
-  display: inline;
-  vertical-align: baseline;
-  /* Prioritize this text - don't let it shrink */
-  flex-shrink: 0;
   white-space: nowrap;
-  /* Subtle scale animation on reveal */
+  display: inline-block;
+  margin-left: 0.5rem;
   animation: subtle-glow 2s ease-out;
 }
 
-/* Subtle glow animation for additional text */
 @keyframes subtle-glow {
   0% { 
     text-shadow: 
@@ -209,40 +195,8 @@
   }
 }
 
-/* Optimized width constraints for better readability while maintaining pyramid aesthetics */
-/* Top tiers now get much more generous space */
-.answer-tier:nth-child(1) .answer-text {
-  max-width: 160px; /* Significantly increased for better readability */
-}
-
-.answer-tier:nth-child(2) .answer-text {
-  max-width: 200px; /* More space for second row */
-}
-
-.answer-tier:nth-child(3) .answer-text {
-  max-width: 240px; /* Generous third row */
-}
-
-/* Middle tiers get excellent width allowance */
-.answer-tier:nth-child(4) .answer-text {
-  max-width: 300px; /* Excellent space for readability */
-}
-
-.answer-tier:nth-child(5) .answer-text {
-  max-width: 360px; /* Very generous */
-}
-
-.answer-tier:nth-child(6) .answer-text {
-  max-width: 420px; /* Excellent readability */
-}
-
-/* Bottom tiers get maximum space */
-.answer-tier:nth-child(n+7) .answer-text {
-  max-width: 480px; /* Maximum readability for bottom rows */
-}
-
 .answer-slot-number {
-  font-size: 0.875rem;
+  font-size: 1rem; /* Match the answer text font size */
   font-weight: 800;
   /* Ensure consistent centering with revealed answers */
   display: flex;

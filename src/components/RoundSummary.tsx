@@ -46,12 +46,6 @@ export default function RoundSummary() {
               </div>
               <div className="text-sm text-red-300">Missed</div>
             </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-cyan-400 filter drop-shadow-[0_0_8px_rgba(34,211,238,0.8)]">
-                {round.answers.length}
-              </div>
-              <div className="text-sm text-cyan-300">Total</div>
-            </div>
           </div>
           
           {/* Answers Grid with Enhanced Visual Design */}
@@ -66,19 +60,32 @@ export default function RoundSummary() {
                   answer.revealed && (
                     <div
                       key={index}
-                      className="bg-green-400 border-2 border-green-300 rounded-lg p-4 text-center text-black shadow-lg transform hover:scale-105 transition-transform"
+                      className="bg-green-400 border-2 border-green-300 rounded-lg p-4 text-black shadow-lg transform hover:scale-105 transition-transform"
                       style={{ filter: 'drop-shadow(0 0 12px rgba(57,255,20,0.7))' }}
                     >
-                      <div className="flex items-center justify-center gap-2 mb-2">
-                        <span className="w-6 h-6 bg-green-600 text-white rounded-full flex items-center justify-center text-xs font-bold">
-                          {index + 1}
-                        </span>
-                        <span className="text-green-800 font-bold">✓</span>
+                      {/* Header with clue */}
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="flex items-center gap-2">
+                          {answer.clue && answer.clue.length <= 3 && (
+                            <span className="inline-flex items-center justify-center min-w-6 h-6 bg-green-600 text-white rounded-md text-xs font-bold px-2 py-1">
+                              {answer.clue}
+                            </span>
+                          )}
+                        </div>
                       </div>
+                      
+                      {/* Clue subtitle (only for longer clues) */}
+                      {answer.clue && answer.clue.length > 3 && (
+                        <div className="mb-3 text-sm text-green-800 font-medium italic leading-tight">
+                          {answer.clue}
+                        </div>
+                      )}
+                      
+                      {/* Answer text */}
                       <div className="text-lg font-bold break-words leading-tight">
                         <span>{answer.text}</span>
                         {answer.additionalText && (
-                          <span className="text-yellow-300 font-bold ml-2 text-base">
+                          <span className="text-green-700 font-bold ml-2 text-base">
                             ({answer.additionalText})
                           </span>
                         )}
@@ -100,15 +107,28 @@ export default function RoundSummary() {
                     !answer.revealed && (
                       <div
                         key={index}
-                        className="bg-red-500 border-2 border-red-400 rounded-lg p-4 text-center text-white shadow-lg opacity-80"
+                        className="bg-red-500 border-2 border-red-400 rounded-lg p-4 text-white shadow-lg opacity-80"
                         style={{ filter: 'drop-shadow(0 0 8px rgba(239,68,68,0.5))' }}
                       >
-                        <div className="flex items-center justify-center gap-2 mb-2">
-                          <span className="w-6 h-6 bg-red-700 text-white rounded-full flex items-center justify-center text-xs font-bold">
-                            {index + 1}
-                          </span>
-                          <span className="text-red-200 font-bold">✗</span>
+                        {/* Header with clue */}
+                        <div className="flex items-center justify-between mb-3">
+                          <div className="flex items-center gap-2">
+                            {answer.clue && answer.clue.length <= 3 && (
+                              <span className="inline-flex items-center justify-center min-w-6 h-6 bg-red-700 text-white rounded-md text-xs font-bold px-2 py-1">
+                                {answer.clue}
+                              </span>
+                            )}
+                          </div>
                         </div>
+                        
+                        {/* Clue subtitle (only for longer clues) */}
+                        {answer.clue && answer.clue.length > 3 && (
+                          <div className="mb-3 text-sm text-red-200 font-medium italic leading-tight">
+                            {answer.clue}
+                          </div>
+                        )}
+                        
+                        {/* Answer text */}
                         <div className="text-lg font-bold break-words leading-tight">
                           <span>{answer.text}</span>
                           {answer.additionalText && (

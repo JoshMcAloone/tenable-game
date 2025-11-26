@@ -28,16 +28,8 @@ export default function BoardView() {
     
     useEffect(() => {
       if (mainTextRef.current && containerRef.current && answer.revealed) {
-        // Check if the main text is being truncated (has ellipsis)
-        const mainTextElement = mainTextRef.current;
-        const containerElement = containerRef.current;
-        
-        // If scrollWidth > clientWidth, then ellipsis is active
-        const mainTextOverflowing = mainTextElement.scrollWidth > mainTextElement.clientWidth;
-        
-        // Also check if the whole container is overflowing
-        const containerOverflowing = containerElement.scrollWidth > containerElement.clientWidth;
-        
+        const mainTextOverflowing = mainTextRef.current.scrollWidth > mainTextRef.current.clientWidth;
+        const containerOverflowing = containerRef.current.scrollWidth > containerRef.current.clientWidth;
         setIsOverflowing(mainTextOverflowing || containerOverflowing);
       }
     }, [answer.text, answer.additionalText, answer.revealed]);
@@ -86,29 +78,28 @@ export default function BoardView() {
 
   const allRevealed = round.answers.every((a) => a.revealed);
   const eliminatedCount = teams.filter((t) => t.eliminated).length;
-  const activeCount = teams.length - eliminatedCount;
   const revealedCount = round.answers.filter((a) => a.revealed).length;
 
   return (
-    <div className="min-h-screen flex flex-col bg-black lg:mx-20"> {/* Add horizontal margins on large screens */}
-      {/* Neon header */}
-      <div className="bg-black border-b border-cyan-400 text-white px-4 py-3 shadow-lg shadow-cyan-400/20">
+    <div className="min-h-screen flex flex-col bg-black">
+      {/* Compact header with better layout */}
+      <div className="bg-black border-b border-cyan-400 text-white px-6 py-3 shadow-lg shadow-cyan-400/20">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <div className="flex items-baseline gap-4">
-            <h1 className="text-2xl font-bold leading-none text-green-400 tracking-wider filter drop-shadow-[0_0_8px_rgba(57,255,20,0.8)]">{t('game.title')}</h1>
-            <p className="text-sm font-semibold text-cyan-300">{t('game.round')} {currentRoundIndex + 1}</p>
-          </div>
-          <div className="text-right text-sm leading-tight">
-            <p className="font-bold text-lg text-green-400">{revealedCount}/{round.answers.length}</p>
-            <p className="font-medium text-cyan-300">{t('game.found')}</p>
+          <div className="flex items-center gap-6">
+            <h1 className="text-xl font-bold text-green-400 tracking-wider filter drop-shadow-[0_0_8px_rgba(57,255,20,0.8)]">{t('game.title')}</h1>
+            <div className="text-cyan-300">
+              <span className="text-sm font-medium">{t('game.round')} {currentRoundIndex + 1}</span>
+              <span className="mx-2">•</span>
+              <span className="text-sm font-bold text-green-400">{revealedCount}/{round.answers.length} {t('game.found')}</span>
+            </div>
           </div>
         </div>
       </div>
-      {/* Question */}
-      <div className="px-4 py-3 text-center bg-black border-b border-purple-600 shadow-lg shadow-purple-600/20">
-        <h2 className="text-lg md:text-xl font-bold text-white tracking-wide" title={round.questionText}>{round.questionText}</h2>
+      {/* Question with better integration */}
+      <div className="px-6 py-4 text-center bg-black border-b border-purple-600 shadow-lg shadow-purple-600/20">
+        <h2 className="text-xl font-bold text-white tracking-wide max-w-4xl mx-auto" title={round.questionText}>{round.questionText}</h2>
       </div>
-      {/* Main area with flanking panels */}
+      {/* Main area with optimized layout */}
       <div className="flex-1 flex max-w-full w-full mx-auto overflow-hidden">
         {/* Left Status Panel */}
         <div className="status-panel status-panel--left">
@@ -126,12 +117,12 @@ export default function BoardView() {
           </div>
         </div>
         
-        {/* Central Game Board - Compact Layout */}
-        <div className="flex-1 flex flex-col md:flex-row gap-4 p-4 bg-black overflow-hidden">
+        {/* Central Game Board - Optimized Layout */}
+        <div className="flex-1 flex flex-col lg:flex-row gap-6 p-6 bg-black overflow-hidden max-w-7xl mx-auto">
           {/* Board & Input Container */}
-          <div className="flex-1 flex flex-col justify-center items-center space-y-4 min-h-0">
-            {/* Pyramid Board - CSS Classes */}
-            <div className={`pyramid-container ${animation?.animationType === 'failure' ? 'pyramid-container--failure' : ''}`}>
+          <div className="flex-1 flex flex-col justify-center items-center min-h-0">
+            {/* Pyramid Board - Enhanced Layout */}
+            <div className={`pyramid-container w-full ${animation?.animationType === 'failure' ? 'pyramid-container--failure' : ''}`}>
               
               {/* Broken Heart Overlay for Life Lost */}
               {animation?.animationType === 'failure' && (
@@ -162,17 +153,14 @@ export default function BoardView() {
                     const totalAnswers = round.answers.length;
                     const progressRatio = tierNumber / totalAnswers;
                     
-                    // Optimized width calculation: maintain pyramid shape while maximizing readability
+                    // Width progression for optimized pyramid space
                     let widthPercent;
-                    if (tierNumber <= 2) {
-                      // Top 2 rows: more generous width while maintaining pyramid aesthetic
-                      widthPercent = 55 + (tierNumber - 1) * 8; // 55%, 63%
-                    } else if (tierNumber <= 4) {
-                      // Middle rows: gradual expansion
-                      widthPercent = 70 + (tierNumber - 3) * 5; // 70%, 75%
+                    if (tierNumber <= 3) {
+                      widthPercent = 70 + (tierNumber - 1) * 8; // 70%, 78%, 86%
+                    } else if (tierNumber <= 6) {
+                      widthPercent = 86 + (tierNumber - 3) * 3; // 89%, 92%, 95%
                     } else {
-                      // Bottom rows: full width utilization
-                      widthPercent = 78 + ((tierNumber - 5) / (totalAnswers - 5)) * 17; // 78% to 95%
+                      widthPercent = 95;
                     }
                     
                     // Determine animation class for this tier
@@ -204,19 +192,19 @@ export default function BoardView() {
               </div>
             </div>
             
-            {/* Answer Input - Compact */}
-            <div className="w-full max-w-lg bg-black border border-cyan-400 rounded-md p-3 shadow-lg shadow-cyan-400/20">
+            {/* Answer Input - Prominent and Clean */}
+            <div className="w-full max-w-2xl mt-6">
               <AnswerInput />
             </div>
           </div>
           
-          {/* Teams Sidebar - Compact */}
-          <div className="w-full md:w-64 flex flex-col gap-2">
-            <div className="bg-black border border-green-400 rounded-md p-2 shadow-lg shadow-green-400/20">
-              <h3 className="font-bold text-green-400 text-center text-sm tracking-wider filter drop-shadow-[0_0_6px_rgba(57,255,20,0.8)]">{t('setup.teamNames')}</h3>
+          {/* Teams Sidebar - Streamlined */}
+          <div className="w-full lg:w-80 flex flex-col">
+            <div className="bg-black border border-green-400 rounded-lg p-3 mb-4 shadow-lg shadow-green-400/20">
+              <h3 className="font-bold text-green-400 text-center tracking-wider filter drop-shadow-[0_0_6px_rgba(57,255,20,0.8)]">{t('setup.teamNames')}</h3>
             </div>
             
-            <div className="flex-1 space-y-2 overflow-y-auto overflow-x-hidden max-h-96">
+            <div className="flex-1 space-y-3 overflow-y-auto max-h-[60vh]">
               {teams.map((team) => (
                 <TeamPanel 
                   key={team.id} 
@@ -227,33 +215,16 @@ export default function BoardView() {
               ))}
             </div>
             
-            <div className="bg-black border border-cyan-400 rounded-md p-3 shadow-lg shadow-cyan-400/20">
-              <div className="text-center mb-2">
-                <div className="font-medium text-cyan-300 text-xs tracking-wider">{t('ui.status')}</div>
-              </div>
-              <div className="grid grid-cols-3 gap-2 text-white text-xs">
-                <div className="text-center">
-                  <div className="font-bold text-green-400 text-sm">{revealedCount}</div>
-                  <div className="opacity-70 text-xs">{t('game.found')}</div>
-                </div>
-                <div className="text-center">
-                  <div className="font-bold text-purple-400 text-sm">{round.answers.length - revealedCount}</div>
-                  <div className="opacity-70 text-xs">{t('game.remain')}</div>
-                </div>
-                <div className="text-center">
-                  <div className="font-bold text-cyan-400 text-sm">{activeCount}</div>
-                  <div className="opacity-70 text-xs">{t('game.active')}</div>
-                </div>
-              </div>
-              {allRevealed && (
+            {allRevealed && (
+              <div className="bg-black border border-green-400 rounded-lg p-4 mt-4 shadow-lg shadow-green-400/30">
                 <button
                   onClick={() => dispatch({ type: 'END_ROUND' })}
-                  className="w-full mt-3 px-3 py-2 bg-green-400 text-black font-bold rounded-md text-xs tracking-wider shadow-lg shadow-green-400/50 hover:scale-105 transition filter drop-shadow-[0_0_8px_rgba(57,255,20,0.8)] cursor-pointer"
+                  className="w-full px-4 py-3 bg-green-400 text-black font-bold rounded-lg tracking-wider shadow-lg shadow-green-400/50 hover:scale-105 transition filter drop-shadow-[0_0_8px_rgba(57,255,20,0.8)] cursor-pointer"
                 >
                   {t('game.endRound')}
                 </button>
-              )}
-            </div>
+              </div>
+            )}
           </div>
         </div>
         

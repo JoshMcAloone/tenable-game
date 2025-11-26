@@ -2,7 +2,13 @@
 .answer-input {
   display: flex;
   flex-direction: column;
-  gap: 1rem; /* space-y-4 */
+  gap: 1.5rem; /* Increased spacing */
+  background-color: black;
+  border: 2px solid #00ffff; /* cyan-400 */
+  border-radius: 0.75rem; /* More rounded */
+  padding: 1.5rem; /* Generous padding */
+  box-shadow: 0 20px 25px -5px rgba(0, 255, 255, 0.3), 0 10px 10px -5px rgba(0, 255, 255, 0.1);
+  filter: drop-shadow(0 0 12px rgba(0, 255, 255, 0.4));
 }
 
 .answer-input__team-indicator {
@@ -15,15 +21,15 @@
   gap: 0.75rem; /* space-x-3 */
   background-color: black;
   border: 1px solid #39ff14; /* green-400 */
-  border-radius: 0.375rem; /* rounded-md */
-  padding: 0.5rem 1rem; /* px-4 py-2 */
+  border-radius: 0.5rem; /* More rounded */
+  padding: 0.75rem 1.5rem; /* Larger padding */
   box-shadow: 0 10px 15px -3px rgba(57, 255, 20, 0.3);
   filter: drop-shadow(0 0 8px rgba(57, 255, 20, 0.6));
 }
 
 .answer-input__team-dot {
-  width: 0.75rem; /* w-3 */
-  height: 0.75rem; /* h-3 */
+  width: 1rem; /* Slightly larger */
+  height: 1rem;
   background-color: #39ff14; /* green-400 */
   border-radius: 50%;
   animation: pulse 2s infinite;
@@ -34,6 +40,7 @@
   color: #39ff14; /* green-400 */
   font-weight: bold;
   letter-spacing: 0.1em; /* tracking-wider */
+  font-size: 1rem; /* Slightly larger */
 }
 
 .answer-input__form {
@@ -50,13 +57,14 @@
 
 .answer-input__field {
   flex: 1;
-  border-radius: 0.375rem; /* rounded-md */
-  background-color: black;
-  border: 1px solid #00ffff; /* cyan-400 */
-  padding: 0.75rem 1rem; /* px-4 py-3 */
+  border-radius: 0.5rem; /* More rounded */
+  background-color: rgba(0, 0, 0, 0.8);
+  border: 2px solid #00ffff; /* cyan-400, thicker border */
+  padding: 1rem 1.25rem; /* Larger padding */
   color: white;
-  font-size: 1.125rem; /* text-lg */
+  font-size: 1.25rem; /* Larger text */
   font-family: 'Courier New', monospace; /* font-mono */
+  font-weight: 500; /* Medium weight */
   letter-spacing: 0.1em; /* tracking-wider */
   transition: all 0.3s;
   box-shadow: 0 10px 15px -3px rgba(0, 255, 255, 0.2);
@@ -64,25 +72,28 @@
 }
 
 .answer-input__field::placeholder {
-  color: rgba(0, 255, 255, 0.5);
+  color: rgba(0, 255, 255, 0.6); /* More visible placeholder */
 }
 
 .answer-input__field:focus {
   border-color: #39ff14; /* green-400 */
   outline: none;
+  box-shadow: 0 0 0 3px rgba(57, 255, 20, 0.2);
 }
 
 .answer-input__submit {
-  padding: 0.75rem 1.5rem; /* px-6 py-3 */
+  padding: 1rem 2rem; /* Larger padding */
   background-color: #39ff14; /* green-400 */
   color: black;
   font-weight: bold;
-  border-radius: 0.375rem; /* rounded-md */
+  font-size: 1.125rem; /* Larger text */
+  border-radius: 0.5rem; /* More rounded */
   transition: all 0.2s;
   box-shadow: 0 10px 15px -3px rgba(57, 255, 20, 0.5);
   letter-spacing: 0.1em; /* tracking-wider */
   border: none;
   cursor: pointer;
+  min-width: 120px; /* Consistent width */
 }
 
 .answer-input__submit:hover:not(:disabled) {

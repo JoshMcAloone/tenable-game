@@ -31,24 +31,28 @@ The main interactive element is a large, inverted triangular pyramid containing 
 
 ### 2.1 Geometry and Layout
 
-- **Shape**: Inverted isosceles triangle, vertically centered
+- **Shape**: Inverted isosceles triangle, vertically centered with wider base design
+- **Base Width**: Wide pyramid extending from 3% to 97% of container width for optimal text space
 - **Outline**: Thick, glowing neon green border (`#39FF14`)
 - **Interior**: Subtle diagonal line/lattice pattern overlay on deep violet
+- **Shape Definition**: Crisp geometric edges defined by CSS clip-path for precision
 
 ### 2.2 Answer Tiers (Slots 1-10)
 
 - **Count**: 10 horizontal tiers, numbered 1 (top) to 10 (bottom)
-- **Sizing**: Each tier spans 100% of available horizontal width at its vertical position
-- **Progression**: Each tier slightly wider than the one above
-- **Height**: Equal vertical height for all tiers
+- **Height**: Compact 2.5rem height per tier for efficient space usage
+- **Width Progression**: Progressive width from 70% (top tier) to 95% (bottom tier)
 - **Special**: Tier 10 (bottom) may be visually distinct/wider
 - **Alignment**: All text centered horizontally
+- **Text Handling**: Smart ellipsis truncation prioritizing additional text over main text
+- **Format**: Displays as "Main Text... (Additional)" when truncated
 
 ### 2.3 Top and Bottom Terminals
 
-- **Top Terminal**: Small, bright neon green triangular block above Tier 1
-- **Bottom Terminal**: Wide, rounded-rectangle bar in solid neon green
+- **Top Terminal**: Prominent 6rem height neon green triangular block for visual impact
+- **Bottom Terminal**: Wide, rounded-rectangle bar (0.5rem) in solid neon green
   - Used for "TENABLE" logo or confirmation text ("SUBMIT")
+  - Rounded bottom corners (8px) matching overall design
 
 ## 3. Dynamic State Management
 

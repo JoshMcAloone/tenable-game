@@ -108,6 +108,28 @@ The validation system now checks for:
 - ✅ All existing functionality preserved
 - ✅ New features properly integrated
 
+## Pyramid UI Improvements (November 2025)
+
+### Visual Enhancements
+- **Wider Pyramid Design**: Extended base from 3% to 97% width for better text space
+- **Progressive Width System**: 70% (top) → 86% (middle) → 95% (bottom) width progression
+- **Enhanced Dimensions**: Enlarged top triangle to 6rem, optimized row heights to 2.5rem
+- **Modern Styling**: Added 8px rounded corners throughout pyramid structure
+
+### Text Handling Improvements
+- **Smart Truncation**: Intelligent ellipsis prioritizing additional text visibility
+- **Format Optimization**: "Main Text... (Additional)" display when truncated
+- **No More Cutoff**: Eliminated text truncation issues on left side
+- **Better Layout**: Enhanced flex-based text positioning for optimal readability
+
+### Code Quality
+- **Complete Cleanup**: Removed all redundant CSS rules and debugging artifacts
+- **Optimized Performance**: Streamlined CSS with no duplicate styles
+- **Maintainable Code**: Well-organized, production-ready implementation
+- **Enhanced Documentation**: Comprehensive pyramid improvement documentation added
+
+See `docs/pyramid_ui_improvements.md` for detailed technical implementation.
+
 ## Usage Examples
 
 ### 1. Character Names

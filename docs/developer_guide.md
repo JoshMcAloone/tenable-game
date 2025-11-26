@@ -12,6 +12,26 @@ Layers:
 ## State Phases
 - `setup` -> `question` -> `board` -> `summary` -> `question` (next) -> `ended`.
 
+## Enhanced Answer Display
+The game supports rich answer formatting with optional clue fields:
+
+### Answer Data Structure
+```typescript
+interface Answer {
+  text: string;           // Primary answer text
+  clue?: string;          // Optional clue for display (e.g., "Mr. Bean" or "1")
+  alternativeText?: string; // Alternative acceptable answers
+  additionalText?: string;  // Extra information (points, context)
+  revealed: boolean;       // Current state
+}
+```
+
+### Clue Display Features
+- **Board View**: Shows clue when answer unrevealed (falls back to position number)
+- **Round Summary**: Displays clues instead of hard-coded numbers for better context
+- **Flexible Format**: Supports both descriptive clues and simple numbering
+- **Responsive Design**: Clue circles expand to accommodate longer text
+
 ## Key Actions
 - INIT_GAME: Build teams, set first round.
 - START_ROUND: Enter board phase.
