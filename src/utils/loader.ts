@@ -10,3 +10,8 @@ export function loadRounds(): QuestionSet[] {
   }
   return rounds;
 }
+
+// Alias for consistent naming with custom rounds
+export function loadDefaultRounds(): Promise<QuestionSet[]> {
+  return Promise.resolve(loadRounds());
+}

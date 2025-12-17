@@ -1,10 +1,10 @@
-import { GameState, QuestionSet, Team } from '../types/domain';
+import { GameState, QuestionSet, Team, CustomRound } from '../types/domain';
 import { INITIAL_LIVES } from '../constants';
 import { loadRounds } from '../utils/loader';
 import { isAnswerAcceptable } from '../utils/fuzzyMatch';
 
 export type Action =
-  | { type: 'START_GAME'; teams: Team[] }
+  | { type: 'START_GAME'; teams: Team[]; rounds?: (QuestionSet | CustomRound)[] }
   | { type: 'START_ROUND' }
   | { type: 'SUBMIT_ANSWER'; answerText: string }
   | { type: 'START_REVEAL_ANIMATION'; answerText: string }
@@ -61,7 +61,21 @@ export function nextTeamId(state: GameState): string | null {
 export function reducer(state: GameState, action: Action): GameState {
   switch (action.type) {
     case 'START_GAME': {
-      return { ...state, teams: action.teams, phase: 'question', currentRoundIndex: 0, currentTurnTeamId: action.teams[0]?.id || null, firstTeamRotationIndex: 0 };
+      const rounds = action.rounds || state.rounds;
+      return { 
+        ...state, 
+        teams: action.teams, 
+        rounds,
+        phase: 'question', 
+        currentRoundIndex: 0, 
+        currentTurnTeamId: action.teams[0]?.id || null, 
+        firstTeamRotationIndex: 0,
+        roundSources: action.rounds ? {
+          defaultRounds: action.rounds.some(r => !('metadata' in r)),
+          customRounds: action.rounds.some(r => 'metadata' in r),
+          selectedRoundIds: action.rounds.map(r => r.id)
+        } : undefined
+      };
     }
     case 'START_ROUND': {
       if (state.phase !== 'question') return state;

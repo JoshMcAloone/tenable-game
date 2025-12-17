@@ -8,4 +8,40 @@
 		100% { transform: scale(1); opacity: 1; }
 	}
 	.animate-reveal { animation: revealPulse 0.5s ease-out; }
+	
+	/* Text truncation utilities */
+	.line-clamp-2 {
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+	
+	.line-clamp-3 {
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+	
+	/* Gray variants */
+	.bg-gray-750 {
+		background-color: rgb(55 65 81); /* Between gray-700 and gray-800 */
+	}
+	
+	/* Sliding animations */
+	.slide-in {
+		animation: slideIn 0.5s ease-out;
+	}
+	
+	@keyframes slideIn {
+		from {
+			opacity: 0;
+			transform: translateY(20px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
 }
