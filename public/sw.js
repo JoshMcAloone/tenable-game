@@ -1,8 +1,8 @@
 const CACHE_NAME = 'tenable-game-cache-v1';
 const PRECACHE = [
-  '/',
-  '/index.html',
-  '/manifest.json'
+  '/tenable-game/',
+  '/tenable-game/index.html',
+  '/tenable-game/manifest.json'
 ];
 
 self.addEventListener('install', (event) => {
