@@ -1,0 +1,22 @@
+* text=auto
+
+# JavaScript files
+*.js text eol=lf
+*.mjs text eol=lf
+*.cjs text eol=lf
+*.ts text eol=lf
+*.tsx text eol=lf
+
+# Web files
+*.json text eol=lf
+*.jsonc text eol=lf
+*.html text eol=lf
+*.css text eol=lf
+*.scss text eol=lf
+
+# Ensure proper MIME types for GitHub Pages
+*.js -text
+*.mjs -text
+*.cjs -text
+*.json -text
+*.html -text
