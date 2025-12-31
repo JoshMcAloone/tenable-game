@@ -1,98 +1,762 @@
 [
   {
     "id": "round1",
-    "questionText": "De mest omnämnda karaktärerna i Harry Potter-böckerna",
+    "questionText": "The first elements to appear in the periodic table",
     "answers": [
-      { "clue": "1",  "text": "Harry Potter",     "alternativeText": "Harry",            "additionalText": "18 956", "revealed": false },
-      { "clue": "2",  "text": "Ron Weasley",      "alternativeText": "Ron",              "additionalText": "6 464",  "revealed": false },
-      { "clue": "3",  "text": "Hermione Granger", "alternativeText": "Hermione",         "additionalText": "5 486",  "revealed": false },
-      { "clue": "4",  "text": "Albus Dumbledore", "alternativeText": "Albus,Dumbledore", "additionalText": "2 421",  "revealed": false },
-      { "clue": "5",  "text": "Rubeus Hagrid",    "alternativeText": "Rubeus,Hagrid",    "additionalText": "2 024",  "revealed": false },
-      { "clue": "6",  "text": "Severus Snape",    "alternativeText": "Severus,Snape",    "additionalText": "1 956",  "revealed": false },
-      { "clue": "7",  "text": "Lord Voldemort",   "alternativeText": "Voldemort",        "additionalText": "1 797",  "revealed": false },
-      { "clue": "8",  "text": "Sirius Black",     "alternativeText": "Sirius",           "additionalText": "1 471",  "revealed": false },
-      { "clue": "9",  "text": "Draco Malfoy",     "alternativeText": "Malfoy,Draco",     "additionalText": "1 198",  "revealed": false },
-      { "clue": "10", "text": "Fred Weasley",     "alternativeText": "Fred",             "additionalText": "920",    "revealed": false }
+      {
+        "clue": "1",
+        "text": "Hydrogen",
+        "alternativeText": "Väte",
+        "additionalText": "H",
+        "revealed": false
+      },
+      {
+        "clue": "2",
+        "text": "Helium",
+        "alternativeText": "",
+        "additionalText": "He",
+        "revealed": false
+      },
+      {
+        "clue": "3",
+        "text": "Lithium",
+        "alternativeText": "Litium",
+        "additionalText": "Li",
+        "revealed": false
+      },
+      {
+        "clue": "4",
+        "text": "Beryllium",
+        "alternativeText": "",
+        "additionalText": "Be",
+        "revealed": false
+      },
+      {
+        "clue": "5",
+        "text": "Boron",
+        "alternativeText": "Bor",
+        "additionalText": "B",
+        "revealed": false
+      },
+      {
+        "clue": "6",
+        "text": "Carbon",
+        "alternativeText": "Kol",
+        "additionalText": "C",
+        "revealed": false
+      },
+      {
+        "clue": "7",
+        "text": "Nitrogen",
+        "alternativeText": "Kväve",
+        "additionalText": "N",
+        "revealed": false
+      },
+      {
+        "clue": "8",
+        "text": "Oxygen",
+        "alternativeText": "Syre",
+        "additionalText": "O",
+        "revealed": false
+      },
+      {
+        "clue": "9",
+        "text": "Fluorine",
+        "alternativeText": "Fluor",
+        "additionalText": "F",
+        "revealed": false
+      },
+      {
+        "clue": "10",
+        "text": "Neon",
+        "alternativeText": "",
+        "additionalText": "Ne",
+        "revealed": false
+      }
     ]
   },
   {
     "id": "round2",
-    "questionText": "Berömda -SONs",
+    "questionText": "The first Disney princesses",
     "answers": [
-      { "clue": "En av The Beatles",                                                        "text": "George Harrison",      "additionalText": "", "revealed": false },
-      { "clue": "Vampyr i en bokfilmserie",                                                 "text": "Robert Pattinson",     "additionalText": "", "revealed": false },
-      { "clue": "Mr. Bean",                                                                 "text": "Rowan Atkinson",       "additionalText": "", "revealed": false },
-      { "clue": "Tarantinos favorit motherfucker",                                          "text": "Samuel L Jackson",     "additionalText": "", "revealed": false },
-      { "clue": "Natasha Romanoff i Marvel-filmerna",                                       "text": "Scarlett Johansson",   "additionalText": "", "revealed": false },
-      { "clue": "Sveriges första kvinnliga statsminister",                                  "text": "Magdalena Andersson",  "additionalText": "", "revealed": false },
-      { "clue": "The Rock",                                                                 "text": "Dwayne Johnson",       "additionalText": "", "revealed": false },
-      { "clue": "Svensk popstjärna som slog igenom efter att ha vunnit Talang som barn",    "text": "Zara Larsson",         "additionalText": "", "revealed": false },
-      { "clue": "Tungviktsboxare känd för att en gång ha bitit en motståndares öra",        "text": "Mike Tyson",           "additionalText": "", "revealed": false },
-      { "clue": "Spirande konstnär på väg fram, född under Fiskarnas stjärntecken i Salem", "text": "Niklas Andersson",     "additionalText": "", "revealed": false }
+      {
+        "clue": "1",
+        "text": "Snow White",
+        "alternativeText": "Snövit",
+        "additionalText": "1937",
+        "revealed": false
+      },
+      {
+        "clue": "2",
+        "text": "Cinderella",
+        "alternativeText": "Askungen",
+        "additionalText": "1950",
+        "revealed": false
+      },
+      {
+        "clue": "3",
+        "text": "Sleeping Beauty",
+        "alternativeText": "Aurora",
+        "additionalText": "1959",
+        "revealed": false
+      },
+      {
+        "clue": "4",
+        "text": "The Little Mermaid",
+        "alternativeText": "Ariel",
+        "additionalText": "1989",
+        "revealed": false
+      },
+      {
+        "clue": "5",
+        "text": "Belle",
+        "alternativeText": "",
+        "additionalText": "1991",
+        "revealed": false
+      },
+      {
+        "clue": "6",
+        "text": "Jasmine",
+        "alternativeText": "Jasmin",
+        "additionalText": "1992",
+        "revealed": false
+      },
+      {
+        "clue": "7",
+        "text": "Pocahontas",
+        "alternativeText": "",
+        "additionalText": "1995",
+        "revealed": false
+      },
+      {
+        "clue": "8",
+        "text": "Mulan",
+        "alternativeText": "",
+        "additionalText": "1998",
+        "revealed": false
+      },
+      {
+        "clue": "9",
+        "text": "Tiana",
+        "alternativeText": "",
+        "additionalText": "2009",
+        "revealed": false
+      },
+      {
+        "clue": "10",
+        "text": "Rapunzel",
+        "alternativeText": "",
+        "additionalText": "2010",
+        "revealed": false
+      }
     ]
   },
   {
     "id": "round3",
-    "questionText": "De senaste vinnarna av Melodifestivalen",
+    "questionText": "Most popular girl’s names for babies born in the UK in 2024",
     "answers": [
-      { "clue": "1",  "text": "KAJ",               "additionalText": "2025", "revealed": false },
-      { "clue": "2",  "text": "Marcus & Martinus", "additionalText": "2024", "revealed": false },
-      { "clue": "3",  "text": "Loreen",            "additionalText": "2023", "revealed": false },
-      { "clue": "4",  "text": "Cornelia Jakobs",   "additionalText": "2022", "revealed": false },
-      { "clue": "5",  "text": "Tusse",             "additionalText": "2021", "revealed": false },
-      { "clue": "6",  "text": "The Mamas",         "additionalText": "2020", "revealed": false },
-      { "clue": "7",  "text": "John Lundvik",      "additionalText": "2019", "revealed": false },
-      { "clue": "8",  "text": "Benjamin Ingrosso", "additionalText": "2018", "revealed": false },
-      { "clue": "9",  "text": "Robin Bengtsson",   "additionalText": "2017", "revealed": false },
-      { "clue": "10", "text": "Frans",             "additionalText": "2016", "revealed": false }
+      {
+        "clue": "1",
+        "text": "Olivia",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "2",
+        "text": "Amelia",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "3",
+        "text": "Lily",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "4",
+        "text": "Isla",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "5",
+        "text": "Ivy",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "6",
+        "text": "Florence",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "7",
+        "text": "Freya",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "8",
+        "text": "Poppy",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "9",
+        "text": "Ava",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "10",
+        "text": "Elsie",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      }
     ]
   },
   {
     "id": "round4",
-    "questionText": "Sveriges populäraste bebisnamn 2024",
+    "questionText": "First characters to appear in the Harry Potter and the Philosopher’s Stone film",
     "answers": [
-      { "clue": "1", "text": "Noah",    "additionalText": "692", "revealed": false },
-      { "clue": "2", "text": "William", "additionalText": "574", "revealed": false },
-      { "clue": "3", "text": "Alma",    "additionalText": "568", "revealed": false },
-      { "clue": "4", "text": "Hugo",    "additionalText": "567", "revealed": false },
-      { "clue": "5", "text": "Alice",   "additionalText": "565", "revealed": false },
-      { "clue": "6", "text": "Olivia",  "additionalText": "552", "revealed": false },
-      { "clue": "7", "text": "Elsa",    "additionalText": "550", "revealed": false },
-      { "clue": "8", "text": "Liam",    "additionalText": "548", "revealed": false },
-      { "clue": "9", "text": "Vera",    "additionalText": "546", "revealed": false },
-      { "clue": "10","text": "Adam/August", "alternativeText": "August,Adam", "additionalText": "538", "revealed": false }
+      {
+        "clue": "1",
+        "text": "Albus Dumbledore",
+        "alternativeText": "Dumbledore",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "2",
+        "text": "Minerva McGonagall",
+        "alternativeText": "McGonagall",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "3",
+        "text": "Rubeus Hagrid",
+        "alternativeText": "Hagrid",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "4",
+        "text": "Harry Potter",
+        "alternativeText": "Harry",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "5",
+        "text": "Petunia Dursley",
+        "alternativeText": "Petunia",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "6",
+        "text": "Dudley Dursley",
+        "alternativeText": "Dudley",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "7",
+        "text": "Vernon Dursley",
+        "alternativeText": "Vernon",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "8",
+        "text": "Quirinus Quirrell",
+        "alternativeText": "Quirrell",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "9",
+        "text": "Griphook",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "10",
+        "text": "Garrick Ollivander",
+        "alternativeText": "Ollivander",
+        "additionalText": "",
+        "revealed": false
+      }
     ]
   },
   {
     "id": "round5",
-    "questionText": "De första grundämnena i det periodiska systemet",
+    "questionText": "Last songs on ABBA Gold when ordered alphabetically",
     "answers": [
-      { "clue": "1",  "text": "Väte",      "alternativeText": "Hydrogen", "additionalText": "H", "revealed": false },
-      { "clue": "2",  "text": "Helium",    "alternativeText": "",         "additionalText": "He", "revealed": false },
-      { "clue": "3",  "text": "Litium",    "alternativeText": "Lithium",  "additionalText": "Li", "revealed": false },
-      { "clue": "4",  "text": "Beryllium", "alternativeText": "",         "additionalText": "Be", "revealed": false },
-      { "clue": "5",  "text": "Bor",       "alternativeText": "Boron",    "additionalText": "B", "revealed": false },
-      { "clue": "6",  "text": "Kol",       "alternativeText": "Carbon",   "additionalText": "C", "revealed": false },
-      { "clue": "7",  "text": "Kväve",     "alternativeText": "Nitrogen", "additionalText": "N", "revealed": false },
-      { "clue": "8",  "text": "Syre",      "alternativeText": "Oxygen",   "additionalText": "O", "revealed": false },
-      { "clue": "9",  "text": "Fluor",     "alternativeText": "Fluorine", "additionalText": "F", "revealed": false },
-      { "clue": "10", "text": "Neon",      "alternativeText": "",         "additionalText": "Ne", "revealed": false }
-    ]  
+      {
+        "clue": "1",
+        "text": "Money, Money, Money",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "2",
+        "text": "One Of Us",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "3",
+        "text": "SOS",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "4",
+        "text": "Super Trouper",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "5",
+        "text": "Take A Chance On Me",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "6",
+        "text": "Thank You For The Music",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "7",
+        "text": "The Name Of The Game",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "8",
+        "text": "The Winner Takes It All",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "9",
+        "text": "Voulez-Vous",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "10",
+        "text": "Waterloo",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      }
+    ]
   },
   {
     "id": "round6",
-    "questionText": "De första Disney-prinsessorna",
+    "questionText": "Historical figures known by a single name",
     "answers": [
-      { "clue": "1",  "text": "Snövit",      "alternativeText": "Snow White",         "additionalText": "1937", "revealed": false },
-      { "clue": "2",  "text": "Askungen",    "alternativeText": "Cinderella",         "additionalText": "1950", "revealed": false },
-      { "clue": "3",  "text": "Aurora",      "alternativeText": "Sleeping Beauty",    "additionalText": "1959", "revealed": false },
-      { "clue": "4",  "text": "Ariel",       "alternativeText": "The Little Mermaid", "additionalText": "1989", "revealed": false },
-      { "clue": "5",  "text": "Belle",       "alternativeText": "",                   "additionalText": "1991", "revealed": false },
-      { "clue": "6",  "text": "Jasmin",      "alternativeText": "Jasmine",            "additionalText": "1992", "revealed": false },
-      { "clue": "7",  "text": "Pocahontas",  "alternativeText": "",                   "additionalText": "1995", "revealed": false },
-      { "clue": "8",  "text": "Mulan",       "alternativeText": "",                   "additionalText": "1998", "revealed": false },
-      { "clue": "9",  "text": "Tiana",       "alternativeText": "",                   "additionalText": "2009", "revealed": false },
-      { "clue": "10", "text": "Rapunzel",    "alternativeText": "",                   "additionalText": "2010", "revealed": false }
+      {
+        "clue": "Greek ‘Eureka’ mathematician",
+        "text": "Archimedes",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "Venetian author, libertine b. 1725",
+        "text": "Casanova",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "Native American buried at Gravesend",
+        "text": "Pocahontas",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "Egyptian ruler in Shakespeare title",
+        "text": "Cleopatra",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "Emperor when Rome burned in 64AD",
+        "text": "Nero",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "Russian mystic, healer to Tsar Nicholas II",
+        "text": "Rasputin",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "Italian astronomer under 1633 house arrest",
+        "text": "Galileo",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "Indian independence leader born 1869",
+        "text": "Gandhi",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "French commander, defeated at Waterloo",
+        "text": "Napoleon",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "Carthaginian general, crossed Alps on elephants",
+        "text": "Hannibal",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      }
+    ]
+  },
+  {
+    "id": "round7",
+    "questionText": "Highest rated films on IMDB released from 1991 onwards",
+    "answers": [
+      {
+        "clue": "1",
+        "text": "The Shawshank Redemption",
+        "alternativeText": "Shawshank Redemption",
+        "additionalText": "9.3",
+        "revealed": false
+      },
+      {
+        "clue": "2",
+        "text": "The Dark Knight",
+        "alternativeText": "Dark Knight",
+        "additionalText": "9.1",
+        "revealed": false
+      },
+      {
+        "clue": "3",
+        "text": "The Lord of the Rings",
+        "alternativeText": "Lord of the Rings",
+        "additionalText": "9.0",
+        "revealed": false
+      },
+      {
+        "clue": "4",
+        "text": "Schindler’s List",
+        "alternativeText": "Schindlers List",
+        "additionalText": "9.0",
+        "revealed": false
+      },
+      {
+        "clue": "5",
+        "text": "Pulp Fiction",
+        "alternativeText": "",
+        "additionalText": "8.8",
+        "revealed": false
+      },
+      {
+        "clue": "6",
+        "text": "Forrest Gump",
+        "alternativeText": "",
+        "additionalText": "8.8",
+        "revealed": false
+      },
+      {
+        "clue": "7",
+        "text": "Fight Club",
+        "alternativeText": "",
+        "additionalText": "8.8",
+        "revealed": false
+      },
+      {
+        "clue": "8",
+        "text": "Inception",
+        "alternativeText": "",
+        "additionalText": "8.8",
+        "revealed": false
+      },
+      {
+        "clue": "9",
+        "text": "The Matrix",
+        "alternativeText": "",
+        "additionalText": "8.7",
+        "revealed": false
+      },
+      {
+        "clue": "10",
+        "text": "Interstellar",
+        "alternativeText": "",
+        "additionalText": "8.7",
+        "revealed": false
+      }
+    ]
+  },
+  {
+    "id": "round8",
+    "questionText": "The closest capital cities to Stockholm",
+    "answers": [
+      {
+        "clue": "1",
+        "text": "Tallinn",
+        "alternativeText": "",
+        "additionalText": "~379km",
+        "revealed": false
+      },
+      {
+        "clue": "2",
+        "text": "Helsinki",
+        "alternativeText": "Helsingfors",
+        "additionalText": "~396km",
+        "revealed": false
+      },
+      {
+        "clue": "3",
+        "text": "Oslo",
+        "alternativeText": "",
+        "additionalText": "~416km",
+        "revealed": false
+      },
+      {
+        "clue": "4",
+        "text": "Riga",
+        "alternativeText": "",
+        "additionalText": "~442km",
+        "revealed": false
+      },
+      {
+        "clue": "5",
+        "text": "Copenhagen",
+        "alternativeText": "Köpenhamn,København",
+        "additionalText": "~522km",
+        "revealed": false
+      },
+      {
+        "clue": "6",
+        "text": "Vilnius",
+        "alternativeText": "",
+        "additionalText": "~675km",
+        "revealed": false
+      },
+      {
+        "clue": "7",
+        "text": "Warsaw",
+        "alternativeText": "",
+        "additionalText": "~810km",
+        "revealed": false
+      },
+      {
+        "clue": "8",
+        "text": "Berlin",
+        "alternativeText": "",
+        "additionalText": "~810km",
+        "revealed": false
+      },
+      {
+        "clue": "9",
+        "text": "Prague",
+        "alternativeText": "",
+        "additionalText": "~1055km",
+        "revealed": false
+      },
+      {
+        "clue": "10",
+        "text": "Amsterdam",
+        "alternativeText": "",
+        "additionalText": "~1125km",
+        "revealed": false
+      }
+    ]
+  },
+  {
+    "id": "round9",
+    "questionText": "The 10 rooms, weapons and surnames in “Cluedo” that contain the letter L",
+    "answers": [
+      {
+        "clue": "1",
+        "text": "Ballroom",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "2",
+        "text": "Billiard Room",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "3",
+        "text": "Hall",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "4",
+        "text": "Library",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "5",
+        "text": "Lounge",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "6",
+        "text": "Candlestick",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "7",
+        "text": "Lead Piping",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "8",
+        "text": "Revolver",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "9",
+        "text": "Professor Plum",
+        "alternativeText": "Plum",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "10",
+        "text": "Miss Scarlett",
+        "alternativeText": "Scarlett",
+        "additionalText": "",
+        "revealed": false
+      }
+    ]
+  },
+  {
+    "id": "round10",
+    "questionText": "Fruits and vegetables by their varieties",
+    "answers": [
+      {
+        "clue": "Galia",
+        "text": "Melon",
+        "alternativeText": "Melons",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "Honeoye",
+        "text": "Strawberry",
+        "alternativeText": "Strawberries",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "Bramley",
+        "text": "Apple",
+        "alternativeText": "Apples",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "Cavendish",
+        "text": "Banana",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "Lambrusco",
+        "text": "Grape",
+        "alternativeText": "Grapes",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "St. Valery",
+        "text": "Carrot",
+        "alternativeText": "Carrots",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "Maris Piper",
+        "text": "Potato",
+        "alternativeText": "Potatoes",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "Romanesco",
+        "text": "Broccoli",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "Black Beauty",
+        "text": "Courgette",
+        "alternativeText": "Zucchini",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "Chanterelle",
+        "text": "Mushroom",
+        "alternativeText": "Mushrooms",
+        "additionalText": "",
+        "revealed": false
+      }
     ]
   }
 ]
