@@ -384,7 +384,7 @@
     "questionText": "Historical figures known by a single name",
     "answers": [
       {
-        "clue": "Greek ‘Eureka’ mathematician",
+        "clue": "Greek Eureka mathematician",
         "text": "Archimedes",
         "alternativeText": "",
         "additionalText": "",
@@ -711,7 +711,7 @@
       {
         "clue": "Cavendish",
         "text": "Banana",
-        "alternativeText": "",
+        "alternativeText": "Bananas",
         "additionalText": "",
         "revealed": false
       },
@@ -739,14 +739,14 @@
       {
         "clue": "Romanesco",
         "text": "Broccoli",
-        "alternativeText": "",
+        "alternativeText": "Broccolis",
         "additionalText": "",
         "revealed": false
       },
       {
         "clue": "Black Beauty",
         "text": "Courgette",
-        "alternativeText": "Zucchini",
+        "alternativeText": "Zucchini,Courgettes,Zucchinis",
         "additionalText": "",
         "revealed": false
       },
