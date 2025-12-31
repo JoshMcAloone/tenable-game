@@ -95,15 +95,15 @@
       },
       {
         "clue": "3",
-        "text": "Sleeping Beauty",
-        "alternativeText": "Aurora",
+        "text": "Aurora",
+        "alternativeText": "Sleeping Beauty",
         "additionalText": "1959",
         "revealed": false
       },
       {
         "clue": "4",
-        "text": "The Little Mermaid",
-        "alternativeText": "Ariel",
+        "text": "Ariel",
+        "alternativeText": "The Little Mermaid",
         "additionalText": "1989",
         "revealed": false
       },
@@ -384,14 +384,14 @@
     "questionText": "Historical figures known by a single name",
     "answers": [
       {
-        "clue": "Greek Eureka mathematician",
+        "clue": "Eureka mathematician",
         "text": "Archimedes",
         "alternativeText": "",
         "additionalText": "",
         "revealed": false
       },
       {
-        "clue": "Venetian author, libertine b. 1725",
+        "clue": "Venetian author, libertine",
         "text": "Casanova",
         "alternativeText": "",
         "additionalText": "",
@@ -656,7 +656,7 @@
       {
         "clue": "7",
         "text": "Lead Piping",
-        "alternativeText": "",
+        "alternativeText": "Lead Pipe",
         "additionalText": "",
         "revealed": false
       },
@@ -754,6 +754,158 @@
         "clue": "Chanterelle",
         "text": "Mushroom",
         "alternativeText": "Mushrooms",
+        "additionalText": "",
+        "revealed": false
+      }
+    ]
+  },
+  {
+    "id": "round11",
+    "questionText": "The first 10 words of exactly four letters in the theme from ‘Friends’",
+    "answers": [
+      {
+        "clue": "1",
+        "text": "Told",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "2",
+        "text": "Life",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "3",
+        "text": "This",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "4",
+        "text": "Your",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "5",
+        "text": "Joke",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "6",
+        "text": "Love",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "7",
+        "text": "Like",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "8",
+        "text": "Gear",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "9",
+        "text": "When",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "10",
+        "text": "Been",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      }
+    ]
+  },
+  {
+    "id": "round12",
+    "questionText": "The 10 states and end cities of Route 66",
+    "answers": [
+      {
+        "clue": "1",
+        "text": "Chicago",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "2",
+        "text": "Illinois",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "3",
+        "text": "Missouri",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "4",
+        "text": "Kansas",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "5",
+        "text": "Oklahoma",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "6",
+        "text": "Texas",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "7",
+        "text": "New Mexico",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "8",
+        "text": "Arizona",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "9",
+        "text": "California",
+        "alternativeText": "",
+        "additionalText": "",
+        "revealed": false
+      },
+      {
+        "clue": "10",
+        "text": "Los Angeles",
+        "alternativeText": "",
         "additionalText": "",
         "revealed": false
       }
